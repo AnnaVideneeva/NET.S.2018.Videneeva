@@ -1,0 +1,6 @@
+D:\CourseEPAM\Task_4\NET.S.2018.Videneeva.03-04\CalculationGCD\bin\Debug\CalculationGCD.dll
+D:\CourseEPAM\Task_4\NET.S.2018.Videneeva.03-04\CalculationGCD\bin\Debug\CalculationGCD.pdb
+D:\CourseEPAM\Task_4\NET.S.2018.Videneeva.03-04\CalculationGCD\obj\Debug\CalculationGCD.csprojResolveAssemblyReference.cache
+D:\CourseEPAM\Task_4\NET.S.2018.Videneeva.03-04\CalculationGCD\obj\Debug\CalculationGCD.csproj.CoreCompileInputs.cache
+D:\CourseEPAM\Task_4\NET.S.2018.Videneeva.03-04\CalculationGCD\obj\Debug\CalculationGCD.dll
+D:\CourseEPAM\Task_4\NET.S.2018.Videneeva.03-04\CalculationGCD\obj\Debug\CalculationGCD.pdb
