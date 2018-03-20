@@ -1,0 +1,9 @@
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\bin\Debug\SolutionClassLibraryPizzeriaGAC.exe.config
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\bin\Debug\SolutionClassLibraryPizzeriaGAC.exe
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\bin\Debug\SolutionClassLibraryPizzeriaGAC.pdb
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\bin\Debug\ClassLibraryPizzeriaStrongName.dll
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\bin\Debug\ClassLibraryPizzeriaStrongName.pdb
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\obj\Debug\SolutionClassLibraryPizzeriaGAC.csprojResolveAssemblyReference.cache
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\obj\Debug\SolutionClassLibraryPizzeriaGAC.csproj.CoreCompileInputs.cache
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\obj\Debug\SolutionClassLibraryPizzeriaGAC.exe
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\SolutionClassLibraryPizzeria\SolutionClassLibraryPizzeriaGAC\obj\Debug\SolutionClassLibraryPizzeriaGAC.pdb

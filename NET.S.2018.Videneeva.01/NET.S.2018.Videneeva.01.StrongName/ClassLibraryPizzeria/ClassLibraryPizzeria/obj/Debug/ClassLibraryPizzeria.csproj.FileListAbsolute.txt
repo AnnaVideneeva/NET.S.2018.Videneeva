@@ -1,0 +1,6 @@
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\ClassLibraryPizzeria\ClassLibraryPizzeria\bin\Debug\ClassLibraryPizzeria.dll
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\ClassLibraryPizzeria\ClassLibraryPizzeria\bin\Debug\ClassLibraryPizzeria.pdb
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\ClassLibraryPizzeria\ClassLibraryPizzeria\obj\Debug\ClassLibraryPizzeria.csprojResolveAssemblyReference.cache
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\ClassLibraryPizzeria\ClassLibraryPizzeria\obj\Debug\ClassLibraryPizzeria.csproj.CoreCompileInputs.cache
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\ClassLibraryPizzeria\ClassLibraryPizzeria\obj\Debug\ClassLibraryPizzeria.dll
+D:\CourseEPAM\Task_1\NET.W.2018.Videneeva.01\CorrectStrongName\ClassLibraryPizzeria\ClassLibraryPizzeria\obj\Debug\ClassLibraryPizzeria.pdb
