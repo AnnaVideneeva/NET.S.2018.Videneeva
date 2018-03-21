@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculationGCD", "Calculati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculationGCD.Tests", "CalculationGCD.Tests\CalculationGCD.Tests.csproj", "{62054D3F-3CFE-418C-A614-9213F3341AD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionDouble", "ExtensionDouble\ExtensionDouble.csproj", "{E06443E9-9CDF-43D1-89B5-427367B5B442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionDouble.Tests", "ExtensionDouble.Tests\ExtensionDouble.Tests.csproj", "{D5EF51BF-99B0-4156-8BD8-08AB95EFFA7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{62054D3F-3CFE-418C-A614-9213F3341AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62054D3F-3CFE-418C-A614-9213F3341AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62054D3F-3CFE-418C-A614-9213F3341AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06443E9-9CDF-43D1-89B5-427367B5B442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06443E9-9CDF-43D1-89B5-427367B5B442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06443E9-9CDF-43D1-89B5-427367B5B442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06443E9-9CDF-43D1-89B5-427367B5B442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5EF51BF-99B0-4156-8BD8-08AB95EFFA7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5EF51BF-99B0-4156-8BD8-08AB95EFFA7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5EF51BF-99B0-4156-8BD8-08AB95EFFA7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5EF51BF-99B0-4156-8BD8-08AB95EFFA7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
