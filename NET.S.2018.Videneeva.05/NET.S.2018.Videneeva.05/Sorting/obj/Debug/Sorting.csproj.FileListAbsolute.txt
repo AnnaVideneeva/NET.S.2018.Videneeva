@@ -1,0 +1,6 @@
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Sorting\obj\Debug\Sorting.csprojResolveAssemblyReference.cache
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Sorting\obj\Debug\Sorting.csproj.CoreCompileInputs.cache
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Sorting\bin\Debug\Sorting.dll
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Sorting\bin\Debug\Sorting.pdb
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Sorting\obj\Debug\Sorting.dll
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Sorting\obj\Debug\Sorting.pdb
