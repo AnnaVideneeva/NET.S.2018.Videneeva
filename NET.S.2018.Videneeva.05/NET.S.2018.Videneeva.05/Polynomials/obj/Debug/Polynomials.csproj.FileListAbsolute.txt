@@ -1,0 +1,5 @@
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Polynomials\bin\Debug\Polynomials.dll
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Polynomials\bin\Debug\Polynomials.pdb
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Polynomials\obj\Debug\Polynomials.csproj.CoreCompileInputs.cache
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Polynomials\obj\Debug\Polynomials.dll
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.05\NET.S.2018.Videneeva.05\Polynomials\obj\Debug\Polynomials.pdb
