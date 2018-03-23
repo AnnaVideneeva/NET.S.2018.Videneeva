@@ -93,7 +93,7 @@ namespace Polynomials
         /// <returns>True is empty or false is not empty.</returns>
         public bool IsEmpty()
         {
-            return (Count == 0) ? (true) : (false);
+            return Count is 0;
         }
 
         #endregion Methods for creating and initializing objects
@@ -315,7 +315,7 @@ namespace Polynomials
                 throw new ArgumentNullException(nameof(secondPolynomial), "Second polynomial is null.");
             }
 
-            return (firstPolynomial.Count > secondPolynomial.Count) ? (true) : (false);
+            return firstPolynomial.Count > secondPolynomial.Count;
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace Polynomials
                 throw new ArgumentNullException(nameof(secondPolynomial), "Second polynomial is null.");
             }
 
-            return (firstPolynomial.Count < secondPolynomial.Count) ? (true) : (false);
+            return firstPolynomial.Count < secondPolynomial.Count;
         }
 
         #endregion Methods of operations overloading
