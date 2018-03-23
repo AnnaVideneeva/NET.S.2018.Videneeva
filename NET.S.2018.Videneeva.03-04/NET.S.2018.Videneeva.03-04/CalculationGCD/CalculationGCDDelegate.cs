@@ -5,58 +5,27 @@ using System.Linq;
 namespace CalculationGCD
 {
     /// <summary>
-    /// Contains two methods for GCD caclulation.
+    /// This class containts Steins and Euclids method which can find GCD.
     /// </summary>
-    public class CalculationGCD
+    public class CalculationGCDDelegate
     {
+        private delegate int AlgorithmCalculationGCD(int firstNumber, int secondNumber);
+
         #region EuclidsAlgorithm
 
         /// <summary>
-        /// Calculates GCD using Euclid's algorithm.
+        /// The public method calculates GCD using Euclid's algorithm.
         /// </summary>
         /// <param name="timeCalculationGCD">It's an output parameter and contains the execution time of the algorithm.</param>
         /// <param name="numbers">An array of parameters that contains numbers for finding the GCD.</param>
-        /// <exception cref="ArgumentException">Throw if the array of parameters is epty or contains only one element.</exception>
         /// <returns>GCD.</returns>
         public static int EuclidsAlgorithm(out long timeCalculationGCD, params int[] numbers)
         {
-            if (numbers.Length <= 1)
-            {
-                throw new ArgumentException("The array of parameters is empty or contains only one element.");
-            }
-
-            TakeAbsNumbers(numbers);
-
-            Stopwatch stopwatch = new Stopwatch();
-
-            stopwatch.Start();
-            int GCD = CalculationByEuclidsAlgorithm(numbers);
-            stopwatch.Stop();
-
-            timeCalculationGCD = stopwatch.ElapsedMilliseconds;
-
-            return GCD;
+            return Calculation(out timeCalculationGCD, new AlgorithmCalculationGCD(EuclidsAlgorithm), numbers);
         }
 
         /// <summary>
-        /// Calculates GCD for several numbers using Euclid's algorithm.
-        /// </summary>
-        /// <param name="numbers">An array of parameters that contains numbers for finding the GCD.</param> 
-        /// <returns>GCD.</returns>
-        private static int CalculationByEuclidsAlgorithm(int[] numbers)
-        {
-            int[] GCDs = new int[numbers.Length - 1];
-
-            for (int i = 0; i < numbers.Length - 1; i++)
-            {
-                GCDs[i] = EuclidsAlgorithm(numbers[i], numbers[i + 1]);
-            }
-
-            return GCDs.Min();
-        }
-
-        /// <summary>
-        /// Calculates GCD for two nambers using Euclid's algorithm.
+        /// The private method calculates GCD for two nambers using Euclid's algorithm.
         /// </summary>
         /// <param name="firstNumber">First number.</param>
         /// <param name="secondNumber">Second number.</param>    
@@ -76,51 +45,18 @@ namespace CalculationGCD
         #region SteinsAlgorithm
 
         /// <summary>
-        /// Calculates GCD using Stein's algorithm.
+        /// The public method calculates GCD using Stein's algorithm.
         /// </summary>
         /// <param name="timeCalculationGCD">It's an output parameter and contains the execution time of the algorithm.</param>
         /// <param name="numbers">An array of parameters that contains numbers for finding the GCD.</param>
-        /// <exception cref="ArgumentException">Throw if the array of parameters is epty or contains only one element.</exception>
         /// <returns>GCD.</returns>
         public static int SteinsAlgorithm(out long timeCalculationGCD, params int[] numbers)
         {
-            if (numbers.Length <= 1)
-            {
-                throw new ArgumentException("The array of parameters is empty or contains only one element.");
-            }
-
-            TakeAbsNumbers(numbers);
-
-            Stopwatch stopwatch = new Stopwatch();
-
-            stopwatch.Start();
-            int GCD = CalculationBySteinsAlgorithm(numbers);
-            stopwatch.Stop();
-
-            timeCalculationGCD = stopwatch.ElapsedMilliseconds;
-
-            return GCD;
+            return Calculation(out timeCalculationGCD, new AlgorithmCalculationGCD(SteinsAlgorithm), numbers);
         }
 
         /// <summary>
-        /// Calculates GCD fot several numbers using Stein's algorithm.
-        /// </summary>
-        /// <param name="numbers">An array of parameters that contains numbers for finding the GCD.</param> 
-        /// <returns>GCD.</returns>
-        private static int CalculationBySteinsAlgorithm(int[] numbers)
-        {
-            int[] GCDs = new int[numbers.Length - 1];
-
-            for (int i = 0; i < numbers.Length - 1; i++)
-            {
-                GCDs[i] = EuclidsAlgorithm(numbers[i], numbers[i + 1]);
-            }
-
-            return GCDs.Min();
-        }
-
-        /// <summary>
-        /// Calculates GCD for two nambers using Stein's algorithm.
+        /// The private method calculates GCD for two nambers using Stein's algorithm.
         /// </summary>
         /// <param name="firstNumber">First number.</param>
         /// <param name="secondNumber">Second number.</param>    
@@ -163,8 +99,38 @@ namespace CalculationGCD
 
         #endregion SteinsAlgorithm
 
+        #region GeneralMethods
+
         /// <summary>
-        /// Calculates the absolute value of all numbers.
+        /// The private method calculates GCD.
+        /// </summary>
+        /// <param name="timeCalculationGCD">It's an output parameter and contains the execution time of the algorithm.</param>
+        /// <param name="algorithmCalculationGCD">The delegate, which stores the algorithm method.</param>
+        /// <param name="numbers">An array of parameters that contains numbers for finding the GCD.</param>
+        /// <exception cref="ArgumentException">If the array of parameters is empty or contains only one element.</exception>
+        /// <returns>GCD.</returns>
+        private static int Calculation(out long timeCalculationGCD, AlgorithmCalculationGCD algorithmCalculationGCD, int[] numbers)
+        {
+            if (numbers.Length <= 1)
+            {
+                throw new ArgumentException("The array of parameters is empty or contains only one element.");
+            }
+
+            TakeAbsNumbers(numbers);
+
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            int GCD = Calculation(numbers, algorithmCalculationGCD);
+            stopwatch.Stop();
+
+            timeCalculationGCD = stopwatch.ElapsedMilliseconds;
+
+            return GCD;
+        }
+
+        /// <summary>
+        /// The method calculates the absolute value of all numbers.
         /// </summary>
         /// <param name="numbers">An array of parameters that contains numbers for finding the GCD.</param> 
         private static void TakeAbsNumbers(int[] numbers)
@@ -174,5 +140,25 @@ namespace CalculationGCD
                 numbers[i] = Math.Abs(numbers[i]);
             }
         }
+
+        /// <summary>
+        /// The private method calculates GCD.
+        /// </summary>
+        /// <param name="numbers">An array of parameters that contains numbers for finding the GCD.</param> 
+        /// <param name="algorithmCalculationGCD">The delegate, which stores the algorithm method.</param>
+        /// <returns>GCD.</returns>
+        private static int Calculation(int[] numbers, AlgorithmCalculationGCD algorithmCalculationGCD)
+        {
+            int[] GCDs = new int[numbers.Length - 1];
+
+            for (int i = 0; i < numbers.Length - 1; i++)
+            {
+                GCDs[i] = algorithmCalculationGCD(numbers[i], numbers[i + 1]);
+            }
+
+            return GCDs.Min();
+        }
+
+        #endregion GeneralMethods
     }
 }

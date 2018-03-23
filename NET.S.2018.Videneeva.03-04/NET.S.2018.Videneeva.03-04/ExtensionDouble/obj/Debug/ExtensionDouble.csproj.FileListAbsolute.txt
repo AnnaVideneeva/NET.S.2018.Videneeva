@@ -4,3 +4,9 @@ D:\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\Ex
 D:\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\obj\Debug\ExtensionDouble.csproj.CoreCompileInputs.cache
 D:\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\obj\Debug\ExtensionDouble.dll
 D:\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\obj\Debug\ExtensionDouble.pdb
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\bin\Debug\ExtensionDouble.dll
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\bin\Debug\ExtensionDouble.pdb
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\obj\Debug\ExtensionDouble.csprojResolveAssemblyReference.cache
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\obj\Debug\ExtensionDouble.csproj.CoreCompileInputs.cache
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\obj\Debug\ExtensionDouble.dll
+D:\CourseEPAM\NET.S.2018.Videneeva\NET.S.2018.Videneeva.03-04\NET.S.2018.Videneeva.03-04\ExtensionDouble\obj\Debug\ExtensionDouble.pdb
