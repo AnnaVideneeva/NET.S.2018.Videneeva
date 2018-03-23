@@ -42,12 +42,9 @@
   <ItemGroup>
     <Compile Include="BubbleSort.cs" />
     <Compile Include="Comparer.cs" />
-    <Compile Include="ComparerByMaxElementOfRowsDecr.cs" />
-    <Compile Include="ComparerByMaxElementOfRowsIncr.cs" />
-    <Compile Include="ComparerByMinElementOfRowsDecr.cs" />
-    <Compile Include="ComparerByMinElementOfRowsIncr.cs" />
-    <Compile Include="ComparerBySumElementsOfRowsDecr.cs" />
-    <Compile Include="ComparerBySumElementsOfRowsIncr.cs" />
+    <Compile Include="ComparerByMaxElementOfRows.cs" />
+    <Compile Include="ComparerByMinElementOfRows.cs" />
+    <Compile Include="ComparerBySumElementsOfRows.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>

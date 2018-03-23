@@ -20,12 +20,12 @@ namespace Polynomials
         /// <exception cref="ArgumentException">Throw ArgumentException if array of polynomial сoefficient is empty.</exception>
         public Polynomial(double[] coefficients)
         {
-            if (coefficients == null)
+            if (coefficients is null)
             {
                 throw new NullReferenceException();
             }
 
-            if (coefficients.Length == 0)
+            if (coefficients.Length is 0)
             {
                 throw new ArgumentException();
             }
