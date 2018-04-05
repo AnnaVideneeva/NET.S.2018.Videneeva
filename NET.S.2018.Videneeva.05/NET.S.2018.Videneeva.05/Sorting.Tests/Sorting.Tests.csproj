@@ -53,7 +53,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BubbleSortNUnitTests.cs" />
+    <Compile Include="BubbleSortDelegateNUnitTests.cs" />
+    <Compile Include="BubbleSortInterfaceNUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

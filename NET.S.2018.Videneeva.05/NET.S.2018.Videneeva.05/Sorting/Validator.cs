@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sorting
 {
@@ -17,7 +18,7 @@ namespace Sorting
         {
             if (array is null)
             {
-                throw new ArgumentNullException(nameof(array), "Array is null.");
+                throw new ArgumentNullException(nameof(array));
             }
 
             if (array.Length is 0)
@@ -29,13 +30,26 @@ namespace Sorting
         /// <summary>
         /// Determines whether the comparer is valid.
         /// </summary>
-        /// <param name="array">The comparer.</param>
+        /// <param name="comparer">The comparer.</param>
         /// <exception cref="ArgumentNullException">Throw ArgumentNullException if comparer is null.</exception>
-        public static void ValidateComparer(Comparer comparer)
+        public static void ValidateComparer(IComparer<int[]> comparer)
         {
             if (comparer is null)
             {
-                throw new ArgumentNullException(nameof(comparer), "Comparer is null");
+                throw new ArgumentNullException(nameof(comparer));
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the delegateComparator is valid.
+        /// </summary>
+        /// <param name="delegateComparator">The delegateComparator.</param>
+        /// <exception cref="ArgumentNullException">Throw ArgumentNullException if delegateComparator is null.</exception>
+        public static void ValidateComparison(Comparison<int[]> delegateComparator)
+        {
+            if (delegateComparator is null)
+            {
+                throw new ArgumentNullException(nameof(delegateComparator));
             }
         }
     }

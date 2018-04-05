@@ -1,10 +1,9 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Sorting.Tests
 {
     [TestFixture]
-    public class BubbleSortNUnitTests
+    public class BubbleSortInterfaceNUnitTests
     {
         #region Sorting by sum elements of rows
 
@@ -14,7 +13,7 @@ namespace Sorting.Tests
             int[][] jaggedArray = { new[] { 38, 4 }, new[] { -6, 11, 5 }, new[] { 44, 39 }, new[] { 1 } };
             int[][] expectedJaggetArray = { new[] { 1 }, new[] { -6, 11, 5 }, new[] { 38, 4 }, new[] { 44, 39 } };
 
-            BubbleSort.SortIncr(jaggedArray, new ComparerBySumElementsOfRows());
+            BubbleSortInterface.Sort(jaggedArray, new ComparerBySumElementsOfRowsIncr());
 
             Assert.AreEqual(jaggedArray, expectedJaggetArray);
         }
@@ -25,7 +24,7 @@ namespace Sorting.Tests
             int[][] jaggedArray = { new[] { 38, 4 }, new[] { -6, 11, 5 }, new[] { 44, 39 }, new[] { 1 } };
             int[][] expectedJaggetArray = { new int[] { 44, 39 }, new int[] { 38, 4 }, new int[] { -6, 11, 5 }, new[] { 1 } };
 
-            BubbleSort.SortDecr(jaggedArray, new ComparerBySumElementsOfRows());
+            BubbleSortInterface.Sort(jaggedArray, new ComparerBySumElementsOfRowsDecr());
 
             Assert.AreEqual(jaggedArray, expectedJaggetArray);
         }
@@ -40,7 +39,7 @@ namespace Sorting.Tests
             int[][] jaggedArray = { new[] { 38, 4 }, new[] { -6, 11, 5 }, new[] { 44, 39 }, new[] { 1 } };
             int[][] expectedJaggetArray = { new[] { -6, 11, 5 }, new[] { 1 }, new[] { 38, 4 }, new[] { 44, 39 } };
 
-            BubbleSort.SortIncr(jaggedArray, new ComparerByMinElementOfRows());
+            BubbleSortInterface.Sort(jaggedArray, new ComparerByMinElementOfRowsIncr());
 
             Assert.AreEqual(jaggedArray, expectedJaggetArray);
         }
@@ -51,7 +50,7 @@ namespace Sorting.Tests
             int[][] jaggedArray = { new[] { 38, 4 }, new[] { -6, 11, 5 }, new[] { 44, 39 }, new[] { 1 } };
             int[][] expectedJaggetArray = { new[] { 44, 39 }, new[] { 38, 4 }, new[] { 1 }, new[] { -6, 11, 5 } };
 
-            BubbleSort.SortDecr(jaggedArray, new ComparerByMinElementOfRows());
+            BubbleSortInterface.Sort(jaggedArray, new ComparerByMinElementOfRowsDecr());
 
             Assert.AreEqual(jaggedArray, expectedJaggetArray);
         }
@@ -66,7 +65,7 @@ namespace Sorting.Tests
             int[][] jaggedArray = { new[] { 38, 4 }, new[] { -6, 11, 5 }, new[] { 44, 39 }, new[] { 1 } };
             int[][] expectedJaggetArray = { new[] { 1 }, new[] { -6, 11, 5 }, new[] { 38, 4 }, new[] { 44, 39 } };
 
-            BubbleSort.SortIncr(jaggedArray, new ComparerByMaxElementOfRows());
+            BubbleSortInterface.Sort(jaggedArray, new ComparerByMaxElementOfRowsIncr());
 
             Assert.AreEqual(jaggedArray, expectedJaggetArray);
         }
@@ -77,7 +76,7 @@ namespace Sorting.Tests
             int[][] jaggedArray = { new[] { 38, 4 }, new[] { -6, 11, 5 }, new[] { 44, 39 }, new[] { 1 } };
             int[][] expectedJaggetArray = { new[] { 44, 39 }, new[] { 38, 4 }, new[] { -6, 11, 5 }, new[] { 1 } };
 
-            BubbleSort.SortDecr(jaggedArray, new ComparerByMaxElementOfRows());
+            BubbleSortInterface.Sort(jaggedArray, new ComparerByMaxElementOfRowsDecr());
 
             Assert.AreEqual(jaggedArray, expectedJaggetArray);
         }
