@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Books
 {
     /// <summary>
     /// Provides properties and methods for working with the book.
     /// </summary>
-    public class Book : IEquatable<Book>, IComparable<Book>
+    public class Book : IEquatable<Book>, IComparable<Book>, IFormattable
     {
         #region Fields
 
@@ -354,6 +355,53 @@ namespace Books
         }
 
         #endregion IComparable interface implementation
+
+        #region IFormattable interface implementation
+
+        /// <summary>
+        /// Formats the value of the current instance using the specified format.
+        /// </summary>
+        /// <param name="format">Format of the string representation.</param>
+        /// <param name="formatProvider">The provider to use to format the value.</param>
+        /// <returns>The value of the current instance in the specified format</returns>
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (format is null)
+            {
+                format = "IANPYNP";
+            }
+
+            if (formatProvider is null)
+            {
+                formatProvider = CultureInfo.CurrentCulture;
+            }
+               
+            switch (format.ToUpperInvariant())
+            {
+                case "AN":
+                    {
+                        return $"Author: {Author};\nName: {Name}.";
+                    }
+                case "ANPY":
+                    {
+                        return $"Author: {Author};\nName: {Name};\nPublishing House: {PublishingHouse};\nYear: {YearOfPublishing}.";
+                    }
+                case "IANPYN":
+                    {
+                        return $"ISBN: {ISBN};\nAuthor: {Author};\nName: {Name};\nPublishing House: {PublishingHouse};\nYear: {YearOfPublishing};\nNumber of pages: {NumberOfPages}.";
+                    }              
+                case "IANPYNP":
+                    {
+                        return $"ISBN: {ISBN};\nAuthor: {Author};\nName: {Name};\nPublishing House: {PublishingHouse};\nYear: {YearOfPublishing};\nNumber of pages: {NumberOfPages};\nPrice: {Price}.";
+                    }              
+                default:
+                    {
+                        throw new FormatException(String.Format("The {0} format string is not supported.", format));
+                    }       
+            }
+        }
+
+        #endregion IFormattable interface implementation
 
     }
 }

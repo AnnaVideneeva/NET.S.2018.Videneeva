@@ -53,6 +53,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookFormatterNUnitTests.cs" />
     <Compile Include="BookListServiceNUnitTests.cs" />
     <Compile Include="BookNUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

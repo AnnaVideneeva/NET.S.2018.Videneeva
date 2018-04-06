@@ -49,7 +49,8 @@ namespace BankAccounts
         /// <param name="ownerSurname">Surname of account holder.</param>
         /// <param name="gradingType">Type of account graduation.</param>
         public Account(int number, string ownerName, string ownerSurname, GradingType gradingType)
-            : this(number, ownerName, ownerSurname, 0, 0, gradingType) { }
+            : this(number, ownerName, ownerSurname, 0, 0, gradingType)
+        { }
 
         #endregion Constructors
 
@@ -64,6 +65,7 @@ namespace BankAccounts
             {
                 return _number;
             }
+
             set
             {
                 if (value <= 0)
@@ -84,12 +86,14 @@ namespace BankAccounts
             {
                 return _ownerName;
             }
+
             set
             {
                 if (ReferenceEquals(null, value))
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
+
                 _ownerName = value;
             }
         }
@@ -103,12 +107,14 @@ namespace BankAccounts
             {
                 return _ownerSurname;
             }
+
             set
             {
                 if (ReferenceEquals(null, value))
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
+
                 _ownerSurname = value;
             }
         }
@@ -122,6 +128,7 @@ namespace BankAccounts
             {
                 return _amount;
             }
+
             set
             {
                 if (value < 0)
@@ -142,6 +149,7 @@ namespace BankAccounts
             {
                 return _bonusPoints;
             }
+
             private set
             {
                 if (value < 0)
@@ -162,6 +170,7 @@ namespace BankAccounts
             {
                 return _typeGrading;
             }
+
             private set
             {
                 if (value == 0)
@@ -179,6 +188,7 @@ namespace BankAccounts
             {
                 return _grading;
             }
+
             set
             {
                 if (ReferenceEquals(null, value))

@@ -70,5 +70,26 @@ namespace Books.Tests
 
         #endregion CompareTo tests
 
+        #region ToString tests
+
+        [TestCase("AN", null, ExpectedResult = "Author: Эрих Мария Ремарк;\nName: Три товарища.")]
+        [TestCase("ANPY", null, ExpectedResult = "Author: Эрих Мария Ремарк;\nName: Три товарища;\nPublishing House: АСТ;\nYear: 2017.")]
+        [TestCase("IANPYN", null, ExpectedResult = "ISBN: 978-5-17-103598-3;\nAuthor: Эрих Мария Ремарк;\nName: Три товарища;\nPublishing House: АСТ;\nYear: 2017;\nNumber of pages: 384.")]
+        [TestCase("IANPYNP", null, ExpectedResult = "ISBN: 978-5-17-103598-3;\nAuthor: Эрих Мария Ремарк;\nName: Три товарища;\nPublishing House: АСТ;\nYear: 2017;\nNumber of pages: 384;\nPrice: 16.")]
+        public string ToString_SuccessfulExecution(string format, IFormatProvider formatProvider)
+        {
+            var book = new Book("978-5-17-103598-3", "Эрих Мария Ремарк", "Три товарища", "АСТ", 2017, 384, 16);
+            return book.ToString(format, formatProvider);
+        }
+
+        [TestCase("JKJHGP", null)]
+        public void ToString_FormatException(string format, IFormatProvider formatProvider)
+        {
+            var book = new Book("978-5-17-103598-3", "Эрих Мария Ремарк", "Три товарища", "АСТ", 2017, 384, 16);
+
+            Assert.Throws<FormatException>(() => book.ToString(format, formatProvider));
+        }
+
+        #endregion ToString tests
     }
 }
