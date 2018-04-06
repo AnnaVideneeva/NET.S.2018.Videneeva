@@ -24,7 +24,7 @@ namespace CalculationGCD.Tests
         [TestCase(123)]
         public void EuclidsAlgorithm_ArgumentException(params int[] numbers)
         {
-            Assert.Throws<ArgumentException>(() => CalculationGCDDelegate.EuclidsAlgorithm(out long timeCalculationGCD, numbers));
+            Assert.Throws<ArgumentException>(() => CalculationGCD.EuclidsAlgorithm(out long timeCalculationGCD, numbers));
         }
 
         #endregion EuclidsAlgorithm
@@ -47,7 +47,7 @@ namespace CalculationGCD.Tests
         [TestCase(123)]
         public void SteinsAlgorithm_ArgumentException(params int[] numbers)
         {
-            Assert.Throws<ArgumentException>(() => CalculationGCDDelegate.SteinsAlgorithm(out long timeCalculationGCD, numbers));
+            Assert.Throws<ArgumentException>(() => CalculationGCD.SteinsAlgorithm(out long timeCalculationGCD, numbers));
         }
 
         #endregion SteinsAlgorithm
