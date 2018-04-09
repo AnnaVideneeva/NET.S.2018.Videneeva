@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Books.Comparers;
+using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,6 +14,8 @@ namespace Books
         #region Fields
 
         private List<Book> _listBook;
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         #endregion Fields
 
@@ -30,10 +34,12 @@ namespace Books
             {
                 if (ReferenceEquals(null, value))
                 {
+                    logger.Warn("The argument of ListBook is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _listBook = value;
+                logger.Info("The field value of ListBook is set to { 0 }", value);
             }
         }
 
@@ -59,6 +65,8 @@ namespace Books
         public BookListService(List<Book> listBook)
         {
             ListBook = listBook;
+
+            logger.Info("The object of the BookListService class was successfully created.");
         }
 
         /// <summary>
@@ -78,10 +86,12 @@ namespace Books
         {
             if (ReferenceEquals(null, book))
             {
+                logger.Error("The value argument of Book is null.");
                 throw new ArgumentNullException(nameof(book));
             }
 
             ListBook.Add(book);
+            logger.Info("A new book was added.");
         }
 
         /// <summary>
@@ -92,10 +102,12 @@ namespace Books
         {
             if (ReferenceEquals(null, book))
             {
+                logger.Error("The value argument of Book is null.");
                 throw new ArgumentNullException(nameof(book));
             }
 
             ListBook.Remove(book);
+            logger.Info("The book was removed.");
         }
 
         /// <summary>
@@ -119,7 +131,6 @@ namespace Books
             {
                 throw new ArgumentNullException(nameof(value));
             }
-
             switch (tag)
             {
                 case Tag.Isbn:
@@ -215,7 +226,7 @@ namespace Books
                 throw new ArgumentException(nameof(tag));
             }
 
-            Sort(tag);
+            Sort(ComparerFactory.GetComparer(tag));
         }
 
         #endregion Public methods for working with list of books
@@ -242,13 +253,13 @@ namespace Books
 
         #region Private methods 
 
-        private void Sort(Tag tag)
+        private void Sort(IComparer<Book> comparer)
         {
             for (int i = 0; i < ListBook.Count; i++)
             {
                 for (int j = 0; j < ListBook.Count - i - 1; j++)
                 {
-                    if (ListBook.ElementAt(j).CompareTo(ListBook.ElementAt(j + 1), tag) > 0)
+                    if (comparer.Compare(ListBook.ElementAt(j), ListBook.ElementAt(j + 1)) > 0)
                     {
                         var temp = ListBook.ElementAt(j + 1);
 

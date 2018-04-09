@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using Books.Comparers;
+using NLog;
 
 namespace Books
 {
@@ -18,6 +21,8 @@ namespace Books
         private int _numberOfPages;
         private decimal _price;
 
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         #endregion Fields
 
         #region Properties
@@ -35,10 +40,12 @@ namespace Books
             {
                 if (ReferenceEquals(null, value))
                 {
+                    logger.Warn("The argument of ISBN is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _isbn = value;
+                logger.Info("The field value of ISBN is set to { 0 }", value);
             }
         }
 
@@ -55,10 +62,12 @@ namespace Books
             {
                 if (ReferenceEquals(null, value))
                 {
+                    logger.Warn("The argument of Author is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _author = value;
+                logger.Info("The field value of Author is set to { 0 }", value);
             }
         }
 
@@ -75,10 +84,12 @@ namespace Books
             {
                 if (ReferenceEquals(null, value))
                 {
+                    logger.Warn("The argument of Name is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _name = value;
+                logger.Info("The field value of Name is set to { 0 }", value);
             }
         }
 
@@ -95,10 +106,12 @@ namespace Books
             {
                 if (ReferenceEquals(null, value))
                 {
+                    logger.Warn("The argument of PublishingHouse is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _publishingHouse = value;
+                logger.Info("The field value of PublishingHouse is set to { 0 }", value);
             }
         }
 
@@ -115,10 +128,12 @@ namespace Books
             {
                 if (value <= 0 && value > 2018)
                 {
+                    logger.Warn("The argument of YearOfPublishing is not correct (less than 0 or more than this year).");
                     throw new ArgumentException(nameof(value));
                 }
 
                 _yearOfPublishing = value;
+                logger.Info("The field value of YearOfPublishing is set to { 0 }", value);
             }
         }
 
@@ -135,10 +150,12 @@ namespace Books
             {
                 if (value <= 0)
                 {
+                    logger.Warn("The argument of  NumberOfPages is  not correct (less than 0).");
                     throw new ArgumentException(nameof(value));
                 }
 
                 _numberOfPages = value;
+                logger.Info("The field value of NumberOfPages is set to { 0 }", value);
             }
         }
 
@@ -155,10 +172,12 @@ namespace Books
             {
                 if (value <= 0)
                 {
+                    logger.Warn("The argument of Price is not correct (less than 0).");
                     throw new ArgumentException(nameof(value));
                 }
 
                 _price = value;
+                logger.Info("The field value of Price is set to { 0 }", value);
             }
         }
 
@@ -185,6 +204,8 @@ namespace Books
             YearOfPublishing = yearOfPublishing;
             NumberOfPages = numberOfPages;
             Price = price;
+
+            logger.Info("The object of the Book class was successfully created.");
         }
 
         #endregion Constructor
@@ -198,7 +219,7 @@ namespace Books
         /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(obj, null))
+            if (ReferenceEquals(null, obj))
             {
                 return false;
             }
@@ -252,7 +273,7 @@ namespace Books
         /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public bool Equals(Book other)
         {
-            if (ReferenceEquals(other, null))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
@@ -289,8 +310,8 @@ namespace Books
                 return 1;
             }
             else
-            {
-                return string.Compare(this.ISBN, other.ISBN);
+            {      
+                return ComparerFactory.GetComparer(Tag.Isbn).Compare(this, other);
             }
         }
 
@@ -306,6 +327,7 @@ namespace Books
         {
             if (tag == 0)
             {
+                logger.Error("The argument of tag is 0.");
                 throw new ArgumentException(nameof(tag));
             }
 
@@ -315,42 +337,7 @@ namespace Books
             }
             else
             {
-                switch (tag)
-                {
-                    case Tag.Isbn:
-                        {
-                            return this.ISBN.CompareTo(other.ISBN);
-                        }
-                    case Tag.Author:
-                        {
-                            return this.Author.CompareTo(other.Author);
-                        }
-                    case Tag.Name:
-                        {
-                            return this.Name.CompareTo(other.Name);
-                        }
-                    case Tag.PublishingHouse:
-                        {
-                            return this.PublishingHouse.CompareTo(other.PublishingHouse);
-                        }
-                    case Tag.YearOfPublishing:
-                        {
-                            return this.YearOfPublishing - other.YearOfPublishing;
-                        }
-                    case Tag.NumberOfPages:
-                        {
-                            return this.NumberOfPages - other.NumberOfPages;
-                        }
-                    case Tag.Price:
-                        {
-                            return (int)(this.Price - other.Price);
-                        }
-                    default:
-                        {
-                            return -1;
-                        }
-                }
-
+                return ComparerFactory.GetComparer(tag).Compare(this, other);
             }
         }
 

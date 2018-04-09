@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Books
         #region Fields
 
         private string _path;
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         #endregion Fields
 
@@ -31,10 +34,12 @@ namespace Books
             {
                 if (ReferenceEquals(null, value))
                 {
+                    logger.Warn("The argument of Path is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _path = value;
+                logger.Info("The field value of ListBook is set to { 0 }", value);
             }
         }
 
@@ -54,6 +59,8 @@ namespace Books
         public BookListStorage(string path)
         {
             Path = path;
+
+            logger.Info("The object of the BookListStorage class was successfully created.");
         }
 
         #endregion Constructors
@@ -73,6 +80,7 @@ namespace Books
 
             if (reader.PeekChar() == -1)
             {
+                logger.Warn("File is empty.");
                 throw new IOException("File is empty.");
             }
 
@@ -92,6 +100,8 @@ namespace Books
             reader.Close();
             file.Close();
 
+            logger.Info("The data was successfully read from the storage.");
+
             return listBook;
         }
 
@@ -103,6 +113,7 @@ namespace Books
         {
             if (ReferenceEquals(null, listBook))
             {
+                logger.Warn("Book list is empty.");
                 throw new ArgumentNullException(nameof(listBook));
             }
 
@@ -122,6 +133,8 @@ namespace Books
 
             writer.Close();
             file.Close();
+
+            logger.Info("The data was successfully written to the storage.");
         }
 
         #endregion Method for working with file
