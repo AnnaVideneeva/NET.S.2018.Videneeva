@@ -12,6 +12,7 @@ namespace FibonacciNumbersSequence
         /// Generate Fibonacci's sequence.
         /// </summary>
         /// <param name="count">The number of sequence numbers.</param>
+        /// <exception cref="ArgumentException">Throw when <paramref name="count"/> is negative or 0.</exception>
         /// <returns>The Fibonacci's sequence.</returns>
         public static int[] GetFibonacciSequence(int count)
         {
