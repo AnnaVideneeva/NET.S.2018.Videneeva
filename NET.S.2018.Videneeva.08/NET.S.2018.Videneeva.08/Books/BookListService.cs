@@ -72,7 +72,10 @@ namespace Books
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public BookListService() : this(new List<Book>()) { }
+        public BookListService() : this(new List<Book>())
+        {
+            logger.Info("The object of the BookListService class was successfully created.");
+        }
 
         #endregion Constructors
 
@@ -82,12 +85,20 @@ namespace Books
         /// Adds a new book to an existing collection.
         /// </summary>
         /// <param name="book">A new book.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="book"/> is null.</exception>
+        /// <exception cref="DuplicateWaitObjectException">Throw when a book with such data already exists.</exception>
         public void AddBook(Book book)
         {
             if (ReferenceEquals(null, book))
             {
-                logger.Error("The value argument of Book is null.");
+                logger.Warn("The value argument of Book is null.");
                 throw new ArgumentNullException(nameof(book));
+            }
+
+            if (ListBook.Contains(book))
+            {   
+                logger.Warn("A book with such data already exists.");
+                throw new DuplicateWaitObjectException(nameof(book));
             }
 
             ListBook.Add(book);
@@ -98,6 +109,7 @@ namespace Books
         /// Removes a book from an existing collection.
         /// </summary>
         /// <param name="book">A book to remove from the collection.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="book"/> is null.</exception>
         public void RemoveBook(Book book)
         {
             if (ReferenceEquals(null, book))
@@ -106,8 +118,14 @@ namespace Books
                 throw new ArgumentNullException(nameof(book));
             }
 
-            ListBook.Remove(book);
-            logger.Info("The book was removed.");
+            if (ListBook.Remove(book))
+            {
+                logger.Info("The book was removed.");
+            }
+            else
+            {
+                logger.Warn("The book was not removed.");
+            }    
         }
 
         /// <summary>
@@ -116,101 +134,31 @@ namespace Books
         /// </summary>
         /// <param name="tag">Criterion for the search.</param>
         /// <param name="value">The value to search.</param>
-        /// <exception cref="ArgumentNullException">Called when the value is null.</exception>
-        /// <exception cref="ArgumentException">Called when the fag is 0.</exception>
+        /// <exception cref="ArgumentNullException">Called when <paramref name="value"/> is null.</exception>
+        /// <exception cref="NullReferenceException">Throw when comparer with <paramref name="tag"> is not found.</exception>
         /// <returns>The first element that satisfies the conditions, if such an element is found; 
         /// otherwise, the line with the message.</returns>
         public string FindBookByTag(Tag tag, string value)
         {
-            if (tag == 0)
-            {
-                throw new ArgumentException(nameof(tag));
-            }
-
             if (ReferenceEquals(null, value))
             {
+                logger.Warn("The value argument is null.");
                 throw new ArgumentNullException(nameof(value));
             }
-            switch (tag)
+
+            var equalityComparer = EqualityComparerFactory.GetEqualityComparer(tag) 
+                ?? throw new NullReferenceException("EqualityComparer with that tag is not found.");
+
+            for (int i = 0; i < ListBook.Count; i++)
             {
-                case Tag.Isbn:
-                    {
-                        for (int i = 0; i < ListBook.Count; i++)
-                        {
-                            if (value.Equals(ListBook.ElementAt(i).ISBN))
-                            {
-                                return ListBook.ElementAt(i).ToString();
-                            }
-                        }
-                        break;
-                    }
-                case Tag.Author:
-                    {
-                        for (int i = 0; i < ListBook.Count; i++)
-                        {
-                            if (value.Equals(ListBook.ElementAt(i).Author))
-                            {
-                                return ListBook.ElementAt(i).ToString();
-                            }
-                        }
-                        break;
-                    }
-                case Tag.Name:
-                    {
-                        for (int i = 0; i < ListBook.Count; i++)
-                        {
-                            if (value.Equals(ListBook.ElementAt(i).Name))
-                            {
-                                return ListBook.ElementAt(i).ToString();
-                            }
-                        }
-                        break;
-                    }
-                case Tag.PublishingHouse:
-                    {
-                        for (int i = 0; i < ListBook.Count; i++)
-                        {
-                            if (value.Equals(ListBook.ElementAt(i).PublishingHouse))
-                            {
-                                return ListBook.ElementAt(i).ToString();
-                            }
-                        }
-                        break;
-                    }
-                case Tag.YearOfPublishing:
-                    {
-                        for (int i = 0; i < ListBook.Count; i++)
-                        {
-                            if (value.Equals(ListBook.ElementAt(i).YearOfPublishing.ToString()))
-                            {
-                                return ListBook.ElementAt(i).ToString();
-                            }
-                        }
-                        break;
-                    }
-                case Tag.NumberOfPages:
-                    {
-                        for (int i = 0; i < ListBook.Count; i++)
-                        {
-                            if (value.Equals(ListBook.ElementAt(i).NumberOfPages.ToString()))
-                            {
-                                return ListBook.ElementAt(i).ToString();
-                            }
-                        }
-                        break;
-                    }
-                case Tag.Price:
-                    {
-                        for (int i = 0; i < ListBook.Count; i++)
-                        {
-                            if (value.Equals(ListBook.ElementAt(i).Price.ToString()))
-                            {
-                                return ListBook.ElementAt(i).ToString();
-                            }
-                        }
-                        break;
-                    }
+                if (equalityComparer.Equals(ListBook.ElementAt(i), value))
+                {
+                    logger.Info("A book on the criterion {0} with the value {1} was found.", tag, value);
+                    return ListBook.ElementAt(i).ToString();
+                }
             }
+
+            logger.Info("A book on the criterion {0} with the value {1} was not found.", tag, value);
             return $"There is no such book!";
         }
 
@@ -218,15 +166,30 @@ namespace Books
         /// Sorts the elements of the collection according to the specified criteria.
         /// </summary>
         /// <param name="tag">Criterion for the search.</param>
-        /// /// <exception cref="ArgumentException">Called when the tag is 0.</exception>
+        /// <exception cref="NullReferenceException">Throw when comparer with <paramref name="tag"> is not found.</exception>
         public void SortBooksByTag(Tag tag)
         {
-            if (tag == 0)
+            var comparer = ComparerFactory.GetComparer(tag) 
+                ?? throw new NullReferenceException("Comparer with that tag is not found.");
+
+            for (int i = 0; i < ListBook.Count; i++)
             {
-                throw new ArgumentException(nameof(tag));
+                for (int j = 0; j < ListBook.Count - i - 1; j++)
+                {
+                    if (comparer.Compare(ListBook.ElementAt(j), ListBook.ElementAt(j + 1)) > 0)
+                    {
+                        var temp = ListBook.ElementAt(j + 1);
+
+                        ListBook.RemoveAt(j + 1);
+                        ListBook.Insert(j + 1, ListBook.ElementAt(j));
+
+                        ListBook.RemoveAt(j);
+                        ListBook.Insert(j, temp);
+                    }
+                }
             }
 
-            Sort(ComparerFactory.GetComparer(tag));
+            logger.Info("The ListBook is sorted by criteria {0}.", tag);
         }
 
         #endregion Public methods for working with list of books
@@ -249,31 +212,6 @@ namespace Books
             ListBook = (new BookListStorage()).ReadDataFromFile();
         }
 
-        #endregion Public methods for writing to/reading from a file
-
-        #region Private methods 
-
-        private void Sort(IComparer<Book> comparer)
-        {
-            for (int i = 0; i < ListBook.Count; i++)
-            {
-                for (int j = 0; j < ListBook.Count - i - 1; j++)
-                {
-                    if (comparer.Compare(ListBook.ElementAt(j), ListBook.ElementAt(j + 1)) > 0)
-                    {
-                        var temp = ListBook.ElementAt(j + 1);
-
-                        ListBook.RemoveAt(j + 1);
-                        ListBook.Insert(j + 1, ListBook.ElementAt(j));
-
-                        ListBook.RemoveAt(j);
-                        ListBook.Insert(j, temp);
-                    }
-                }
-            }
-        }
-
-        #endregion Private methods 
-
+        #endregion Public methods for writing to/reading from a file  
     }
 }
