@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FibonacciNumbersSequence", "FibonacciNumbersSequence", "{7EA1D98D-FA63-43F6-A4F8-A32D26CF7831}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FibonacciNumbersSequence", "FibonacciNumberSequence\FibonacciNumbersSequence.csproj", "{BF9652DB-28AE-43C7-B356-E8FDADB8972A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FibonacciNumbersSequence.Tests", "FibonacciNumbersSequence.Tests\FibonacciNumbersSequence.Tests.csproj", "{2CEB13A0-B222-4993-AE87-BE86B8703C0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF9652DB-28AE-43C7-B356-E8FDADB8972A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9652DB-28AE-43C7-B356-E8FDADB8972A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9652DB-28AE-43C7-B356-E8FDADB8972A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9652DB-28AE-43C7-B356-E8FDADB8972A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CEB13A0-B222-4993-AE87-BE86B8703C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CEB13A0-B222-4993-AE87-BE86B8703C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CEB13A0-B222-4993-AE87-BE86B8703C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CEB13A0-B222-4993-AE87-BE86B8703C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BF9652DB-28AE-43C7-B356-E8FDADB8972A} = {7EA1D98D-FA63-43F6-A4F8-A32D26CF7831}
+		{2CEB13A0-B222-4993-AE87-BE86B8703C0B} = {7EA1D98D-FA63-43F6-A4F8-A32D26CF7831}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C8CB0EF-1938-42E8-BDAF-372852AE5844}
+	EndGlobalSection
+EndGlobal
