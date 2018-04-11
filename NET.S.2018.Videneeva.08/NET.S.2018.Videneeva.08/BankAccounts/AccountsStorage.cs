@@ -10,15 +10,6 @@ namespace BankAccounts
     /// </summary>
     public static class AccountsStorage
     {
-        #region Properties
-
-        /// <summary>
-        /// The path to the file with the collection of accounts.
-        /// </summary>
-        public static string Path { get; private set; }
-
-        #endregion Properties
-
         #region Static constructor
 
         /// <summary>
@@ -30,6 +21,15 @@ namespace BankAccounts
         }
 
         #endregion Static constructor
+
+        #region Properties
+
+        /// <summary>
+        /// The path to the file with the collection of accounts.
+        /// </summary>
+        public static string Path { get; private set; }
+
+        #endregion Properties
 
         #region Method for working with file
 
@@ -57,8 +57,7 @@ namespace BankAccounts
                     reader.ReadString(),
                     reader.ReadDouble(),
                     reader.ReadInt32(),
-                    (GradingType)reader.ReadInt32()
-                    ));
+                    (GradingType)reader.ReadInt32()));
             }
 
             reader.Close();

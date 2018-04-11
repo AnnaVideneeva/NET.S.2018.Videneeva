@@ -21,11 +21,13 @@
                         grading = new Base();
                         break;
                     }
+
                 case GradingType.Gold:
                     {
                         grading = new Gold();
                         break;
                     }
+
                 case GradingType.Platinum:
                     {
                         grading = new Platinum();
@@ -37,4 +39,3 @@
         }
     }
 }
-

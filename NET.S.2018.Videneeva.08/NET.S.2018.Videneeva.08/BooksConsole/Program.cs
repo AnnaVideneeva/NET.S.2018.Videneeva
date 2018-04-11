@@ -1,13 +1,12 @@
-﻿using Books;
-using Books.Comparers;
-using System;
+﻿using System;
 using System.Linq;
+using Books;
 
 namespace BooksConsole
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Book firstBook = new Book("978-5-389-04564-4", "Оскар Уайльд", "Портрет Дориана Грея", "Азбука", 2012, 416, 9);
             Book secondBook = new Book("978-5-699-50605-7", "Антуан де Сент-Экзюпери", "Маленький принц", "Эксмо", 2011, 160, 17);
@@ -65,4 +64,3 @@ namespace BooksConsole
         }
     }
 }
-

@@ -14,7 +14,7 @@
         /// otherwise - false.</returns>
         public bool Equals(Book book, string str)
         {
-            return Equals(book.Price.ToString(), str);
+            return object.Equals(book.Price.ToString(), str);
         }
     }
 }

@@ -14,36 +14,43 @@ namespace Books.Comparers
         /// <returns>Comparator by tag.</returns>
         public static IComparer<Book> GetComparer(Tag tag)
         {
-            switch(tag)
+            switch (tag)
             {
                 case Tag.Isbn:
                     {
                         return new ComparerByISBN();
                     }
+
                 case Tag.Author:
                     {
                         return new ComparerByAuthor();
                     }
+
                 case Tag.Name:
                     {
                         return new ComparerByName();
                     }
+
                 case Tag.PublishingHouse:
                     {
                         return new ComparerByPublishingHouse();
                     }
+
                 case Tag.YearOfPublishing:
                     {
                         return new ComparerByYearOfPublishing();
                     }
+
                 case Tag.NumberOfPages:
                     {
                         return new ComparerByNumberOfPages();
                     }
+
                 case Tag.Price:
                     {
                         return new ComparerByPrice();
                     }
+
                 default:
                     {
                         return null;

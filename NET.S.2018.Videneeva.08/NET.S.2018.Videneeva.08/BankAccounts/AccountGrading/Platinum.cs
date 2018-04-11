@@ -10,7 +10,9 @@
         /// <summary>
         /// Initializes the coefficients.
         /// </summary>
-        public Platinum() : base(6, 7) { }
+        public Platinum() : base(6, 7)
+        {
+        }
 
         #endregion Constractor
     }

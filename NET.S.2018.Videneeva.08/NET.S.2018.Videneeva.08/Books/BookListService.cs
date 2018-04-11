@@ -1,8 +1,8 @@
-﻿using Books.Comparers;
-using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Books.Comparers;
+using NLog;
 
 namespace Books
 {
@@ -13,11 +13,34 @@ namespace Books
     {
         #region Fields
 
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private List<Book> _listBook;
 
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion Fields  
 
-        #endregion Fields
+        #region Constructors
+
+        /// <summary>
+        /// A complete constructor to initialize the object.
+        /// </summary>
+        /// <param name="listBook">Collection of books.</param>    
+        public BookListService(List<Book> listBook)
+        {
+            ListBook = listBook;
+
+            Logger.Info("The object of the BookListService class was successfully created.");
+        }
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public BookListService() : this(new List<Book>())
+        {
+            Logger.Info("The object of the BookListService class was successfully created.");
+        }
+
+        #endregion Constructors
 
         #region Properties
 
@@ -30,16 +53,17 @@ namespace Books
             {
                 return _listBook;
             }
+
             private set
             {
                 if (ReferenceEquals(null, value))
                 {
-                    logger.Warn("The argument of ListBook is null.");
+                    Logger.Warn("The argument of ListBook is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _listBook = value;
-                logger.Info("The field value of ListBook is set to { 0 }", value);
+                Logger.Info("The field value of ListBook is set to { 0 }", value);
             }
         }
 
@@ -56,29 +80,6 @@ namespace Books
 
         #endregion Properties
 
-        #region Constructors
-
-        /// <summary>
-        /// A complete constructor to initialize the object.
-        /// </summary>
-        /// <param name="listBook">Collection of books.</param>    
-        public BookListService(List<Book> listBook)
-        {
-            ListBook = listBook;
-
-            logger.Info("The object of the BookListService class was successfully created.");
-        }
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public BookListService() : this(new List<Book>())
-        {
-            logger.Info("The object of the BookListService class was successfully created.");
-        }
-
-        #endregion Constructors
-
         #region Public methods for working with list of books
 
         /// <summary>
@@ -91,18 +92,18 @@ namespace Books
         {
             if (ReferenceEquals(null, book))
             {
-                logger.Warn("The value argument of Book is null.");
+                Logger.Warn("The value argument of Book is null.");
                 throw new ArgumentNullException(nameof(book));
             }
 
             if (ListBook.Contains(book))
             {   
-                logger.Warn("A book with such data already exists.");
+                Logger.Warn("A book with such data already exists.");
                 throw new DuplicateWaitObjectException(nameof(book));
             }
 
             ListBook.Add(book);
-            logger.Info("A new book was added.");
+            Logger.Info("A new book was added.");
         }
 
         /// <summary>
@@ -114,17 +115,17 @@ namespace Books
         {
             if (ReferenceEquals(null, book))
             {
-                logger.Error("The value argument of Book is null.");
+                Logger.Error("The value argument of Book is null.");
                 throw new ArgumentNullException(nameof(book));
             }
 
             if (ListBook.Remove(book))
             {
-                logger.Info("The book was removed.");
+                Logger.Info("The book was removed.");
             }
             else
             {
-                logger.Warn("The book was not removed.");
+                Logger.Warn("The book was not removed.");
             }    
         }
 
@@ -142,7 +143,7 @@ namespace Books
         {
             if (ReferenceEquals(null, value))
             {
-                logger.Warn("The value argument is null.");
+                Logger.Warn("The value argument is null.");
                 throw new ArgumentNullException(nameof(value));
             }
 
@@ -153,12 +154,12 @@ namespace Books
             {
                 if (equalityComparer.Equals(ListBook.ElementAt(i), value))
                 {
-                    logger.Info("A book on the criterion {0} with the value {1} was found.", tag, value);
+                    Logger.Info("A book on the criterion {0} with the value {1} was found.", tag, value);
                     return ListBook.ElementAt(i).ToString();
                 }
             }
 
-            logger.Info("A book on the criterion {0} with the value {1} was not found.", tag, value);
+            Logger.Info("A book on the criterion {0} with the value {1} was not found.", tag, value);
             return $"There is no such book!";
         }
 
@@ -189,7 +190,7 @@ namespace Books
                 }
             }
 
-            logger.Info("The ListBook is sorted by criteria {0}.", tag);
+            Logger.Info("The ListBook is sorted by criteria {0}.", tag);
         }
 
         #endregion Public methods for working with list of books

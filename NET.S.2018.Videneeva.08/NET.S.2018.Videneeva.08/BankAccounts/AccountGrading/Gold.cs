@@ -10,7 +10,9 @@
         /// <summary>
         /// Initializes the coefficients.
         /// </summary>
-        public Gold() : base(4, 5) { }
+        public Gold() : base(4, 5)
+        {
+        }
 
         #endregion Constractor
     }

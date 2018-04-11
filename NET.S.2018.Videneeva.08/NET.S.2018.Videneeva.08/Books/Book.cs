@@ -12,6 +12,7 @@ namespace Books
     public class Book : IEquatable<Book>, IComparable<Book>, IFormattable
     {
         #region Fields
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private string _isbn;
         private string _author;
@@ -21,167 +22,7 @@ namespace Books
         private int _numberOfPages;
         private decimal _price;
 
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
         #endregion Fields
-
-        #region Properties
-
-        /// <summary>
-        /// International Standard Book Number of the book.
-        /// </summary>
-        public string ISBN
-        {
-            get
-            {
-                return _isbn;
-            }
-            set
-            {
-                if (ReferenceEquals(null, value))
-                {
-                    logger.Warn("The argument of ISBN is null.");
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                _isbn = value;
-                logger.Info("The field value of ISBN is set to { 0 }", value);
-            }
-        }
-
-        /// <summary>
-        /// Author of the book.
-        /// </summary>
-        public string Author
-        {
-            get
-            {
-                return _author;
-            }
-            set
-            {
-                if (ReferenceEquals(null, value))
-                {
-                    logger.Warn("The argument of Author is null.");
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                _author = value;
-                logger.Info("The field value of Author is set to { 0 }", value);
-            }
-        }
-
-        /// <summary>
-        /// Book title.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (ReferenceEquals(null, value))
-                {
-                    logger.Warn("The argument of Name is null.");
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                _name = value;
-                logger.Info("The field value of Name is set to { 0 }", value);
-            }
-        }
-
-        /// <summary>
-        /// Publisher of the book.
-        /// </summary>
-        public string PublishingHouse
-        {
-            get
-            {
-                return _publishingHouse;
-            }
-            set
-            {
-                if (ReferenceEquals(null, value))
-                {
-                    logger.Warn("The argument of PublishingHouse is null.");
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                _publishingHouse = value;
-                logger.Info("The field value of PublishingHouse is set to { 0 }", value);
-            }
-        }
-
-        /// <summary>
-        /// Year of publication of the book.
-        /// </summary>
-        public int YearOfPublishing
-        {
-            get
-            {
-                return _yearOfPublishing;
-            }
-            set
-            {
-                if (value <= 0 && value > 2018)
-                {
-                    logger.Warn("The argument of YearOfPublishing is not correct (less than 0 or more than this year).");
-                    throw new ArgumentException(nameof(value));
-                }
-
-                _yearOfPublishing = value;
-                logger.Info("The field value of YearOfPublishing is set to { 0 }", value);
-            }
-        }
-
-        /// <summary>
-        /// Number of pages in the book.
-        /// </summary>
-        public int NumberOfPages
-        {
-            get
-            {
-                return _numberOfPages;
-            }
-            set
-            {
-                if (value <= 0)
-                {
-                    logger.Warn("The argument of  NumberOfPages is  not correct (less than 0).");
-                    throw new ArgumentException(nameof(value));
-                }
-
-                _numberOfPages = value;
-                logger.Info("The field value of NumberOfPages is set to { 0 }", value);
-            }
-        }
-
-        /// <summary>
-        /// The price of the book.
-        /// </summary>
-        public decimal Price
-        {
-            get
-            {
-                return _price;
-            }
-            set
-            {
-                if (value <= 0)
-                {
-                    logger.Warn("The argument of Price is not correct (less than 0).");
-                    throw new ArgumentException(nameof(value));
-                }
-
-                _price = value;
-                logger.Info("The field value of Price is set to { 0 }", value);
-            }
-        }
-
-        #endregion Properties
 
         #region Constructor
 
@@ -205,10 +46,175 @@ namespace Books
             NumberOfPages = numberOfPages;
             Price = price;
 
-            logger.Info("The object of the Book class was successfully created.");
+            Logger.Info("The object of the Book class was successfully created.");
         }
 
         #endregion Constructor
+
+        #region Properties
+
+        /// <summary>
+        /// International Standard Book Number of the book.
+        /// </summary>
+        public string ISBN
+        {
+            get
+            {
+                return _isbn;
+            }
+
+            set
+            {
+                if (ReferenceEquals(null, value))
+                {
+                    Logger.Warn("The argument of ISBN is null.");
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _isbn = value;
+                Logger.Info("The field value of ISBN is set to { 0 }", value);
+            }
+        }
+
+        /// <summary>
+        /// Author of the book.
+        /// </summary>
+        public string Author
+        {
+            get
+            {
+                return _author;
+            }
+
+            set
+            {
+                if (ReferenceEquals(null, value))
+                {
+                    Logger.Warn("The argument of Author is null.");
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _author = value;
+                Logger.Info("The field value of Author is set to { 0 }", value);
+            }
+        }
+
+        /// <summary>
+        /// Book title.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                if (ReferenceEquals(null, value))
+                {
+                    Logger.Warn("The argument of Name is null.");
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _name = value;
+                Logger.Info("The field value of Name is set to { 0 }", value);
+            }
+        }
+
+        /// <summary>
+        /// Publisher of the book.
+        /// </summary>
+        public string PublishingHouse
+        {
+            get
+            {
+                return _publishingHouse;
+            }
+
+            set
+            {
+                if (ReferenceEquals(null, value))
+                {
+                    Logger.Warn("The argument of PublishingHouse is null.");
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _publishingHouse = value;
+                Logger.Info("The field value of PublishingHouse is set to { 0 }", value);
+            }
+        }
+
+        /// <summary>
+        /// Year of publication of the book.
+        /// </summary>
+        public int YearOfPublishing
+        {
+            get
+            {
+                return _yearOfPublishing;
+            }
+
+            set
+            {
+                if (value <= 0 && value > 2018)
+                {
+                    Logger.Warn("The argument of YearOfPublishing is not correct (less than 0 or more than this year).");
+                    throw new ArgumentException(nameof(value));
+                }
+
+                _yearOfPublishing = value;
+                Logger.Info("The field value of YearOfPublishing is set to { 0 }", value);
+            }
+        }
+
+        /// <summary>
+        /// Number of pages in the book.
+        /// </summary>
+        public int NumberOfPages
+        {
+            get
+            {
+                return _numberOfPages;
+            }
+
+            set
+            {
+                if (value <= 0)
+                {
+                    Logger.Warn("The argument of  NumberOfPages is  not correct (less than 0).");
+                    throw new ArgumentException(nameof(value));
+                }
+
+                _numberOfPages = value;
+                Logger.Info("The field value of NumberOfPages is set to { 0 }", value);
+            }
+        }
+
+        /// <summary>
+        /// The price of the book.
+        /// </summary>
+        public decimal Price
+        {
+            get
+            {
+                return _price;
+            }
+
+            set
+            {
+                if (value <= 0)
+                {
+                    Logger.Warn("The argument of Price is not correct (less than 0).");
+                    throw new ArgumentException(nameof(value));
+                }
+
+                _price = value;
+                Logger.Info("The field value of Price is set to { 0 }", value);
+            }
+        }
+
+        #endregion Properties
 
         #region Overridden methods
 
@@ -234,7 +240,7 @@ namespace Books
                 return false;
             }
 
-            return Equals((Book)obj);
+            return this.Equals((Book)obj);
         }
 
         /// <summary>
@@ -253,12 +259,12 @@ namespace Books
         public override int GetHashCode()
         {
             int hashcode = ISBN.GetHashCode();
-            hashcode = 11 * hashcode + Author.GetHashCode();
-            hashcode = 11 * hashcode + Name.GetHashCode();
-            hashcode = 11 * hashcode + PublishingHouse.GetHashCode();
-            hashcode = 11 * hashcode + YearOfPublishing.GetHashCode();
-            hashcode = 11 * hashcode + NumberOfPages.GetHashCode();
-            hashcode = 11 * hashcode + Price.GetHashCode();
+            hashcode = (11 * hashcode) + Author.GetHashCode();
+            hashcode = (11 * hashcode) + Name.GetHashCode();
+            hashcode = (11 * hashcode) + PublishingHouse.GetHashCode();
+            hashcode = (11 * hashcode) + YearOfPublishing.GetHashCode();
+            hashcode = (11 * hashcode) + NumberOfPages.GetHashCode();
+            hashcode = (11 * hashcode) + Price.GetHashCode();
             return hashcode;
         }
 
@@ -327,7 +333,7 @@ namespace Books
         {
             if (tag == 0)
             {
-                logger.Error("The argument of tag is 0.");
+                Logger.Error("The argument of tag is 0.");
                 throw new ArgumentException(nameof(tag));
             }
 
@@ -369,27 +375,28 @@ namespace Books
                     {
                         return $"Author: {Author};\nName: {Name}.";
                     }
+
                 case "ANPY":
                     {
                         return $"Author: {Author};\nName: {Name};\nPublishing House: {PublishingHouse};\nYear: {YearOfPublishing}.";
                     }
+
                 case "IANPYN":
                     {
                         return $"ISBN: {ISBN};\nAuthor: {Author};\nName: {Name};\nPublishing House: {PublishingHouse};\nYear: {YearOfPublishing};\nNumber of pages: {NumberOfPages}.";
-                    }              
+                    }   
+                    
                 case "IANPYNP":
                     {
                         return $"ISBN: {ISBN};\nAuthor: {Author};\nName: {Name};\nPublishing House: {PublishingHouse};\nYear: {YearOfPublishing};\nNumber of pages: {NumberOfPages};\nPrice: {Price}.";
-                    }              
+                    }  
+                    
                 default:
                     {
-                        throw new FormatException(String.Format("The {0} format string is not supported.", format));
+                        throw new FormatException(string.Format("The {0} format string is not supported.", format));
                     }       
             }
         }
-
         #endregion IFormattable interface implementation
-
     }
 }
-

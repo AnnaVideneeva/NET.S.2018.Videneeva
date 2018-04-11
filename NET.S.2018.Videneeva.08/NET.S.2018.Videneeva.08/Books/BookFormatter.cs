@@ -1,6 +1,6 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Globalization;
+using NLog;
 
 namespace Books
 {
@@ -11,7 +11,7 @@ namespace Books
     {
         #region Fields
 
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         #endregion Fields
 
@@ -63,11 +63,10 @@ namespace Books
             }
             else
             {
-                return (arg != null) ? (arg.ToString()) : (String.Empty);
+                return arg != null ? arg.ToString() : string.Empty;
             }
         }
 
         #endregion Private method
     }
 }
-

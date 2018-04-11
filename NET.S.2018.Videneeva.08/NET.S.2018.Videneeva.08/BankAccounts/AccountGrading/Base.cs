@@ -10,7 +10,9 @@
         /// <summary>
         /// Initializes the coefficients.
         /// </summary>
-        public Base() : base(2, 3) { }
+        public Base() : base(2, 3)
+        {
+        }
 
         #endregion Constractor
     }

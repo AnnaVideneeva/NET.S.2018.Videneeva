@@ -11,6 +11,26 @@ namespace BankAccounts
 
         #endregion Fields
 
+        #region Constructors
+
+        /// <summary>
+        /// A complete constructor to initialize the object.
+        /// </summary>
+        /// <param name="listAccounts">Collection of accounts.</param>
+        public AccountsService(List<Account> listAccounts)
+        {
+            ListAccounts = listAccounts;
+        }
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public AccountsService() : this(new List<Account>())
+        {
+        }
+
+        #endregion Constructors
+
         #region Properties
 
         /// <summary>
@@ -22,6 +42,7 @@ namespace BankAccounts
             {
                 return _listAccounts;
             }
+
             private set
             {
                 if (ReferenceEquals(null, value))
@@ -45,24 +66,6 @@ namespace BankAccounts
         }
 
         #endregion Properties
-
-        #region Constructors
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public AccountsService() : this(new List<Account>()) { }
-
-        /// <summary>
-        /// A complete constructor to initialize the object.
-        /// </summary>
-        /// <param name="listAccounts">Collection of accounts.</param>
-        public AccountsService(List<Account> listAccounts)
-        {
-            ListAccounts = listAccounts;
-        }
-
-        #endregion Constructors
 
         #region Public methods for working with list of accounts
 

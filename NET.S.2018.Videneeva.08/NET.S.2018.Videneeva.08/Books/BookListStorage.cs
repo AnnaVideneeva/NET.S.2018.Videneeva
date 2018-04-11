@@ -1,8 +1,8 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NLog;
 
 namespace Books
 {
@@ -13,11 +13,33 @@ namespace Books
     {
         #region Fields
 
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private string _path;
-
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
+  
         #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public BookListStorage() : this(AppDomain.CurrentDomain.BaseDirectory + "BookListStorage.txt")
+        {
+        }
+
+        /// <summary>
+        /// A complete constructor to initialize the object.
+        /// </summary>
+        /// <param name="path">The path to the file with the collection of books.</param>
+        public BookListStorage(string path)
+        {
+            Path = path;
+
+            Logger.Info("The object of the BookListStorage class was successfully created.");
+        }
+
+        #endregion Constructors
 
         #region Properties
 
@@ -30,40 +52,21 @@ namespace Books
             {
                 return _path;
             }
+
             set
             {
                 if (ReferenceEquals(null, value))
                 {
-                    logger.Warn("The argument of Path is null.");
+                    Logger.Warn("The argument of Path is null.");
                     throw new ArgumentNullException(nameof(value));
                 }
 
                 _path = value;
-                logger.Info("The field value of ListBook is set to { 0 }", value);
+                Logger.Info("The field value of ListBook is set to { 0 }", value);
             }
         }
 
         #endregion Properties
-
-        #region Constructors
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public BookListStorage() : this(AppDomain.CurrentDomain.BaseDirectory + "BookListStorage.txt") { }
-
-        /// <summary>
-        /// A complete constructor to initialize the object.
-        /// </summary>
-        /// <param name="path">The path to the file with the collection of books.</param>
-        public BookListStorage(string path)
-        {
-            Path = path;
-
-            logger.Info("The object of the BookListStorage class was successfully created.");
-        }
-
-        #endregion Constructors
 
         #region Method for working with file
 
@@ -80,7 +83,7 @@ namespace Books
 
             if (reader.PeekChar() == -1)
             {
-                logger.Warn("File is empty.");
+                Logger.Warn("File is empty.");
                 throw new IOException("File is empty.");
             }
 
@@ -93,14 +96,13 @@ namespace Books
                     reader.ReadString(),
                     reader.ReadInt32(),
                     reader.ReadInt32(),
-                    reader.ReadDecimal()
-                    ));
+                    reader.ReadDecimal()));
             }
 
             reader.Close();
             file.Close();
 
-            logger.Info("The data was successfully read from the storage.");
+            Logger.Info("The data was successfully read from the storage.");
 
             return listBook;
         }
@@ -113,7 +115,7 @@ namespace Books
         {
             if (ReferenceEquals(null, listBook))
             {
-                logger.Warn("Book list is empty.");
+                Logger.Warn("Book list is empty.");
                 throw new ArgumentNullException(nameof(listBook));
             }
 
@@ -134,7 +136,7 @@ namespace Books
             writer.Close();
             file.Close();
 
-            logger.Info("The data was successfully written to the storage.");
+            Logger.Info("The data was successfully written to the storage.");
         }
 
         #endregion Method for working with file

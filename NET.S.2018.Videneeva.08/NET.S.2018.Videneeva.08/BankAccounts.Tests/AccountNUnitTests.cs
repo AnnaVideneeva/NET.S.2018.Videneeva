@@ -34,4 +34,3 @@ namespace BankAccounts.Tests
         #endregion Equals tests
     }
 }
-

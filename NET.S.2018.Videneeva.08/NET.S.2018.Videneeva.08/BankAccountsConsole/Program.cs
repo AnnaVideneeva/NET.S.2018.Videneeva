@@ -1,12 +1,12 @@
-﻿using BankAccounts;
-using System;
+﻿using System;
 using System.Linq;
+using BankAccounts;
 
 namespace BankAccountsConsole
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Account firstAccount = new Account(123, "Кутыркина", "Елизавета", GradingType.Base);
             Account secondAccount = new Account(125, "Калесникова", "Вероника", 100, 10, GradingType.Gold);
@@ -52,7 +52,6 @@ namespace BankAccountsConsole
             secondAccountsService.ReadDataFromFile();
 
             ConsoleWrite(secondAccountsService);
-
         }
 
         public static void ConsoleWrite(AccountsService accountsService)

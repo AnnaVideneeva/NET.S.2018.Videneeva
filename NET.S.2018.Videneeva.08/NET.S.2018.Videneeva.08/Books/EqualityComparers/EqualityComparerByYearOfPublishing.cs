@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides a method for comparing the Book object with a given string to equality.
     /// </summary>
-    class EqualityComparerByYearOfPublishing : IEqualityComparer
+    public class EqualityComparerByYearOfPublishing : IEqualityComparer
     {
         /// <summary>
         /// Compares the field YearOfPublishing of the object Book with the given string.
@@ -14,7 +14,7 @@
         /// otherwise - false.</returns>
         public bool Equals(Book book, string str)
         {
-            return Equals(book.YearOfPublishing.ToString(), str);
+            return object.Equals(book.YearOfPublishing.ToString(), str);
         }
     }
 }

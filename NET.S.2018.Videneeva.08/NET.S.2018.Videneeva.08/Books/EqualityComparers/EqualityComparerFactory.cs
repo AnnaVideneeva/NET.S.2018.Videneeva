@@ -1,5 +1,4 @@
 ﻿using Books.EqualityComparers;
-using System.Collections.Generic;
 
 namespace Books.Comparers
 {
@@ -21,30 +20,37 @@ namespace Books.Comparers
                     {
                         return new EqualityComparerByISBN();
                     }
+
                 case Tag.Author:
                     {
                         return new EqualityComparerByAuthor();
                     }
+
                 case Tag.Name:
                     {
                         return new EqualityComparerByName();
                     }
+
                 case Tag.PublishingHouse:
                     {
                         return new EqualityComparerByPublishingHouse();
                     }
+
                 case Tag.YearOfPublishing:
                     {
                         return new EqualityComparerByYearOfPublishing();
                     }
+
                 case Tag.NumberOfPages:
                     {
                         return new EqualityComparerByNumberOfPages();
                     }
+
                 case Tag.Price:
                     {
                         return new EqualityComparerByPrice();
                     }
+
                 default:
                     {
                         return null;
@@ -53,4 +59,3 @@ namespace Books.Comparers
         }
     }
 }
-

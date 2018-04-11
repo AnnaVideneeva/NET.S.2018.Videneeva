@@ -50,7 +50,8 @@ namespace BankAccounts
         /// <param name="gradingType">Type of account graduation.</param>
         public Account(int number, string ownerName, string ownerSurname, GradingType gradingType)
             : this(number, ownerName, ownerSurname, 0, 0, gradingType)
-        { }
+        {
+        }
 
         #endregion Constructors
 
@@ -226,7 +227,7 @@ namespace BankAccounts
                 return false;
             }
 
-            return Equals((Account)obj);
+            return this.Equals((Account)obj);
         }
 
         /// <summary>
@@ -270,11 +271,11 @@ namespace BankAccounts
         public override int GetHashCode()
         {
             int hashcode = Number.GetHashCode();
-            hashcode = 11 * hashcode + OwnerName.GetHashCode();
-            hashcode = 11 * hashcode + OwnerSurname.GetHashCode();
-            hashcode = 11 * hashcode + Amount.GetHashCode();
-            hashcode = 11 * hashcode + BonusPoints.GetHashCode();
-            hashcode = 11 * hashcode + TypeGrading.GetHashCode();
+            hashcode = (11 * hashcode) + OwnerName.GetHashCode();
+            hashcode = (11 * hashcode) + OwnerSurname.GetHashCode();
+            hashcode = (11 * hashcode) + Amount.GetHashCode();
+            hashcode = (11 * hashcode) + BonusPoints.GetHashCode();
+            hashcode = (11 * hashcode) + TypeGrading.GetHashCode();
             return hashcode;
         }
 
@@ -312,4 +313,3 @@ namespace BankAccounts
         #endregion Public methods for account replenishment/debit from account
     }
 }
-

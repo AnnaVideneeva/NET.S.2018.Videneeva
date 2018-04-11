@@ -1,14 +1,14 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace Books.Tests
 {
     [TestFixture]
-    class BookListServiceNUnitTests
+    public class BookListServiceNUnitTests
     {
         #region Fields
 
-        private static readonly BookListService bookListService = new BookListService(
+        private static BookListService bookListService = new BookListService(
             new List<Book>
             {
                 new Book("978-5-389-04564-4", "Оскар Уайльд", "Портрет Дориана Грея", "Азбука", 2012, 416, 9),
@@ -17,7 +17,7 @@ namespace Books.Tests
                 new Book("978-5-17-080115-2", "Джордж Оруэлл", "1984", "АСТ", 2015, 320, 10)
             });
 
-        private static readonly BookListService bookListServiceSortedByIsbn = new BookListService(
+        private static BookListService bookListServiceSortedByIsbn = new BookListService(
            new List<Book>
            {
                 new Book("978-5-17-080115-2", "Джордж Оруэлл", "1984", "АСТ", 2015, 320, 10),
@@ -26,7 +26,7 @@ namespace Books.Tests
                 new Book("978-5-699-50605-7", "Антуан де Сент-Экзюпери", "Маленький принц", "Эксмо", 2011, 160, 17)
            });
 
-        private static readonly BookListService bookListServiceSortedByAuthor = new BookListService(
+        private static BookListService bookListServiceSortedByAuthor = new BookListService(
            new List<Book>
            {
                 new Book("978-5-699-50605-7", "Антуан де Сент-Экзюпери", "Маленький принц", "Эксмо", 2011, 160, 17),
@@ -35,7 +35,7 @@ namespace Books.Tests
                 new Book("978-5-17-103598-3", "Эрих Мария Ремарк", "Три товарища", "АСТ", 2017, 384, 16)
            });
 
-        private static readonly BookListService bookListServiceSortedByName = new BookListService(
+        private static BookListService bookListServiceSortedByName = new BookListService(
             new List<Book>
             {
                 new Book("978-5-17-080115-2", "Джордж Оруэлл", "1984", "АСТ", 2015, 320, 10),
@@ -44,7 +44,7 @@ namespace Books.Tests
                 new Book("978-5-17-103598-3", "Эрих Мария Ремарк", "Три товарища", "АСТ", 2017, 384, 16)
             });
 
-        private static readonly BookListService bookListServiceSortedByYearOfPublishing = new BookListService(
+        private static BookListService bookListServiceSortedByYearOfPublishing = new BookListService(
             new List<Book>
             {
                 new Book("978-5-699-50605-7", "Антуан де Сент-Экзюпери", "Маленький принц", "Эксмо", 2011, 160, 17),
@@ -53,14 +53,13 @@ namespace Books.Tests
                 new Book("978-5-17-103598-3", "Эрих Мария Ремарк", "Три товарища", "АСТ", 2017, 384, 16)
             });
 
-        private static readonly BookListService bookListServiceSortedByPrice = new BookListService(
+        private static BookListService bookListServiceSortedByPrice = new BookListService(
             new List<Book>
             {
                 new Book("978-5-389-04564-4", "Оскар Уайльд", "Портрет Дориана Грея", "Азбука", 2012, 416, 9),
                 new Book("978-5-17-080115-2", "Джордж Оруэлл", "1984", "АСТ", 2015, 320, 10),
                 new Book("978-5-17-103598-3", "Эрих Мария Ремарк", "Три товарища", "АСТ", 2017, 384, 16),
                 new Book("978-5-699-50605-7", "Антуан де Сент-Экзюпери", "Маленький принц", "Эксмо", 2011, 160, 17)
-
             });
 
         #endregion Fields
@@ -127,4 +126,3 @@ namespace Books.Tests
         #endregion SortBooksByTag tests
     }
 }
-

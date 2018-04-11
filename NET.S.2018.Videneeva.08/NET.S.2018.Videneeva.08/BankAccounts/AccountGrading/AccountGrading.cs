@@ -7,8 +7,8 @@
     {
         #region  Fields
 
-        protected readonly int _coeffCostReplenishment;
-        protected readonly int _coeffCostBalanse;
+        protected readonly int CoeffCostReplenishment;
+        protected readonly int CoeffCostBalanse;
 
         #endregion  Fields
 
@@ -21,8 +21,8 @@
         /// <param name="coeffCostBalanse">The balance cost factor used when debiting an account.</param>
         public AccountGrading(int coeffCostReplenishment, int coeffCostBalanse)
         {
-            _coeffCostReplenishment = coeffCostReplenishment;
-            _coeffCostBalanse = coeffCostBalanse;
+            CoeffCostReplenishment = coeffCostReplenishment;
+            CoeffCostBalanse = coeffCostBalanse;
         }
 
         #endregion Constructor
@@ -36,7 +36,7 @@
         /// <returns>Increased bonus points.</returns>
         public virtual int IncreaseBonusPoints(int bonusPoints)
         {
-            return bonusPoints + _coeffCostReplenishment;
+            return bonusPoints + CoeffCostReplenishment;
         }
 
         /// <summary>
@@ -46,12 +46,11 @@
         /// <returns>Reduced bonus points.</returns>
         public virtual int ReductionBonusPoints(int bonusPoints)
         {
-            return (bonusPoints <= _coeffCostReplenishment)
+            return (bonusPoints <= CoeffCostReplenishment)
                 ? 0
-                : bonusPoints - _coeffCostReplenishment;
+                : bonusPoints - CoeffCostReplenishment;
         }
 
         #endregion Public methods to decrease/increase bonus points
     }
 }
-
