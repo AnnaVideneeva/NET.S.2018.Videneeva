@@ -60,6 +60,63 @@ namespace Collection
         #region Properties
 
         /// <summary>
+        /// Gets or sets the number of items in the Queue.
+        /// </summary>
+        public int Size
+        {
+            get => this.size;
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Size is not be negative.", nameof(value));
+                }
+
+                this.size = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the element in the collection at the current position of the enumerator.
+        /// </summary>
+        public T Current
+        {
+            get
+            {
+                if (this.iterator == -1)
+                {
+                    throw new InvalidOperationException("Queue is empty.");
+                }
+
+                return this.Data[this.iterator];
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the capacity of the Queue.
+        /// </summary>
+        public int Capacity
+        {
+            get => this.capacity;
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Capacity is not be negative.", nameof(value));
+                }
+
+                this.capacity = value;
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get => (object)this.Current;
+        }
+
+        /// <summary>
         /// Gets or sets an array of the Queue elements.
         /// </summary>
         private T[] Data
@@ -110,42 +167,6 @@ namespace Collection
                 }
 
                 this.tail = value;
-            }
-        }
-        
-        /// <summary>
-        /// Gets or sets the number of items in the Queue.
-        /// </summary>
-        public int Size
-        {
-            get => this.size;
-
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Size is not be negative.", nameof(value));
-                }
-
-                this.size = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the capacity of the Queue.
-        /// </summary>
-        public int Capacity
-        {
-            get => this.capacity;
-
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Capacity is not be negative.", nameof(value));
-                }
-
-                this.capacity = value;
             }
         }
 
@@ -355,22 +376,6 @@ namespace Collection
         #region IEnumerator implementation
 
         /// <summary>
-        /// Gets the element in the collection at the current position of the enumerator.
-        /// </summary>
-        public T Current
-        {
-            get
-            {
-                if (this.iterator == -1)
-                {
-                    throw new InvalidOperationException("Queue is empty.");
-                }
-
-                return this.Data[this.iterator];
-            }
-        }
-
-        /// <summary>
         /// Advances the enumerator to the next element of the collection.
         /// </summary>
         /// <returns>True if the enumerator was successfully advanced to the next element; 
@@ -405,11 +410,6 @@ namespace Collection
 
         public void Dispose()
         {
-        }
-
-        object IEnumerator.Current
-        {
-            get => (object)this.Current;
         }
 
         #endregion IEnumerator implementation
