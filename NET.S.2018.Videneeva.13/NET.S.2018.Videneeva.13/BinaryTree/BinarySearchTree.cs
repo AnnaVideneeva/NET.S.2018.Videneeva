@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BinaryTree
 {
@@ -138,22 +135,23 @@ namespace BinaryTree
                 throw new ArgumentNullException(nameof(data));
             }
                 
-            if (!Contains(data))
+            if (Contains(data))
             {
-                return false;
-            }
-           
-            if (comparer.Compare(this.Root.Data, data) == 0)
-            {
-                RemoveRoot(this.Root, data);
-            }              
-            else
-            {
-                RemoveAt(this.Root, data);
+                if (comparer.Compare(this.Root.Data, data) == 0)
+                {
+                    RemoveRootNode();
+                }
+                else
+                { 
+                    this.Find(data, out Node<T> parent, out Node<T> current);
+                    RemoveNode(parent, current);
+                }
+
+                Count--;
+                return true;
             }
 
-            Count--;
-            return true;
+            return false;           
         }
 
         public bool Contains(T data)
@@ -192,6 +190,216 @@ namespace BinaryTree
             return false;
         }
 
+        public void Clear()
+        {
+            this.Root = null;
+            this.Count = 0;
+        }
+
+        public IEnumerable<T> PreOrder() => PreOrder(this.Root);
+
+        public IEnumerable<T> InOrder() => InOrder(this.Root);
+
+        public IEnumerable<T> PostOrder() => PostOrder(this.Root);
+
         #endregion Methods for working with the binary tree
+
+        #region Private methods of ways of traversing a tree
+
+        private IEnumerable<T> PreOrder(Node<T> node)
+        {
+            if (ReferenceEquals(node, null))
+            {
+                yield break;
+            }               
+
+            yield return node.Data;
+
+            foreach (var item in PreOrder(node.Left))
+            {
+                yield return item;
+            }              
+
+            foreach (var item in PreOrder(node.Right))
+            {
+                yield return item;
+            }                
+        }
+
+        private IEnumerable<T> InOrder(Node<T> node)
+        {
+            if (ReferenceEquals(node, null))
+            {
+                yield break;
+            }              
+
+            foreach (var item in InOrder(node.Left))
+            {
+                yield return item;
+            }
+                
+            yield return node.Data;
+
+            foreach (var item in InOrder(node.Right))
+            {
+                yield return item;
+            }              
+        }
+
+        private IEnumerable<T> PostOrder(Node<T> node)
+        {
+            if (ReferenceEquals(node, null))
+            {
+                yield break;
+            }
+               
+            foreach (var item in PostOrder(node.Left))
+            {
+                yield return item;
+            }             
+
+            foreach (var item in PostOrder(node.Right))
+            {
+                yield return item;
+            }
+                
+            yield return node.Data;
+        }
+
+        #endregion Private methods of ways of traversing a tree
+
+        #region Private methods
+
+        private void RemoveRootNode()
+        {
+            if (object.ReferenceEquals(null, this.Root.Right) && object.ReferenceEquals(null, this.Root.Left))
+            {
+                this.Root = null;
+                return;
+            }
+  
+            if (object.ReferenceEquals(null, this.Root.Left))
+            {
+                this.Root = this.Root.Right;
+                return;
+            }
+
+            if (object.ReferenceEquals(null, this.Root.Right))
+            {
+                this.Root = this.Root.Left;
+                return;
+            }
+
+            Node<T> current = this.Root.Right;
+
+            if (object.ReferenceEquals(null, current.Left))
+            {
+                this.Root = current;
+                return;
+            }
+
+            Node<T> prevCurrent = this.Root;
+
+            while (!object.ReferenceEquals(current.Left, null))
+            {
+                prevCurrent = current;
+                current = current.Left;
+            }
+
+            prevCurrent.Left = current.Right;
+            current.Right = root.Right;
+            current.Left = root.Left;
+            this.Root = current;
+        }
+
+        private void RemoveNode(Node<T> parent, Node<T> current)
+        {
+            if (ReferenceEquals(null, current.Right) && ReferenceEquals(null, current.Left))
+            {
+                if (comparer.Compare(parent.Data, current.Data) > 0)
+                {
+                    parent.Left = null;
+                }
+                else
+                {
+                    parent.Right = null;
+                }
+
+                return;   
+            }
+            
+            if (ReferenceEquals(null, current.Left))
+            {
+                if (comparer.Compare(parent.Data, current.Data) > 0)
+                {
+                    parent.Left = current.Right;
+                }
+                else
+                {
+                    parent.Right = current.Right;
+                }
+
+                return;
+            }
+            
+            if (ReferenceEquals(null, current.Right))
+            {
+                if (comparer.Compare(parent.Data, current.Data) > 0)
+                {
+                    parent.Left = current.Left;
+                }
+                else
+                {
+                    parent.Right = current.Left;
+                }
+
+                return;
+            }
+
+            Node<T> prevCurrent = current;
+            Node<T> temp = current;
+            current = current.Right;
+            
+            while (!ReferenceEquals(current.Left, null))
+            {
+                prevCurrent = current;
+                current = current.Left;
+            }
+            
+            if (comparer.Compare(parent.Data, current.Data) > 0)
+            {
+                parent.Left = current;
+            }
+            else
+            {
+                parent.Right = current;
+            }
+                
+            current.Left = temp.Left;
+            prevCurrent.Left = prevCurrent.Left.Right;
+            current.Right = temp.Right;
+        }
+
+        private void Find(T data, out Node<T> parent, out Node<T> current)
+        {
+            current = this.Root;
+            parent = null;
+
+            while (comparer.Compare(current.Data, data) != 0)
+            {
+                parent = current;
+
+                if (comparer.Compare(current.Data, data) > 0)
+                {
+                    current = current.Left;
+                }
+                else
+                {
+                    current = current.Right;
+                }
+            }
+        }
+
+        #endregion Private methods
     }
 }
