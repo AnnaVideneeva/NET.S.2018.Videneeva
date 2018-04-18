@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace BinaryTree
 {
+    /// <summary>
+    /// Provides a set of methods for working with the binary search tree.
+    /// </summary>
+    /// <typeparam name="T">The data type of the BinarySearchTree.</typeparam>
     public class BinarySearchTree<T>
     {
         #region Fields
@@ -13,8 +17,22 @@ namespace BinaryTree
 
         #endregion Fields 
 
-        #region Constructors
+        #region Constructors     
 
+        /// <summary>
+        /// Inintializes a new instance of the <see cref="collection"/> and <see cref="comparer"/>.
+        /// </summary>
+        /// <param name="collection">List of elements for compiling a binary search tree.</param>
+        /// <param name="comparer">Comparator for the binary search tree data type.</param>
+        public BinarySearchTree(IEnumerable<T> collection, IComparer<T> comparer) : this(comparer)
+        {
+            this.AddCollection(collection);
+        }
+
+        /// <summary>
+        /// Inintializes a new instance of the <see cref="comparer"/>.
+        /// </summary>
+        /// <param name="comparer">Comparator for the binary search tree data type.</param>
         public BinarySearchTree(IComparer<T> comparer)
         {
             this.Comparer = comparer;
@@ -22,6 +40,11 @@ namespace BinaryTree
             this.Count = 0;
         }
 
+        /// <summary>
+        /// Inintializes a new instance of the <see cref="data"/> and <see cref="comparer"/>.
+        /// </summary>
+        /// <param name="data">The data of the binary search tree node.</param>
+        /// <param name="comparer">Comparator for the binary search tree data type.</param>
         public BinarySearchTree(T data, IComparer<T> comparer)
         {
             this.Comparer = comparer;
@@ -29,10 +52,25 @@ namespace BinaryTree
             this.Count = 1;
         }
 
+        /// <summary>
+        /// Inintializes a new instance of the <see cref="collection"/>.
+        /// </summary>
+        /// <param name="collection">List of elements for compiling a binary search tree.</param>
+        public BinarySearchTree(IEnumerable<T> collection) : this(collection, Comparer<T>.Default)
+        {
+        }
+
+        /// <summary>
+        /// Inintializes a new instance of the <see cref="data"/>.
+        /// </summary>
+        /// <param name="data">The data of the binary search tree node.</param>
         public BinarySearchTree(T data) : this(data, Comparer<T>.Default)
         {
         }
 
+        /// <summary>
+        /// Inintializes a new instance.
+        /// </summary>
         public BinarySearchTree() : this(Comparer<T>.Default)
         {
         }
@@ -41,6 +79,9 @@ namespace BinaryTree
 
         #region Properties
 
+        /// <summary>
+        /// The number of nodes in the binary search tree.
+        /// </summary>
         public int Count
         {
             get => this.count;
@@ -56,6 +97,9 @@ namespace BinaryTree
             }
         }
 
+        /// <summary>
+        /// The root of the binary search tree.
+        /// </summary>
         private Node<T> Root
         {
             get => this.root;
@@ -66,6 +110,9 @@ namespace BinaryTree
             }
         }
 
+        /// <summary>
+        /// Comparator for the binary search tree data type.
+        /// </summary>
         private IComparer<T> Comparer
         {
             get => this.comparer;
@@ -87,6 +134,11 @@ namespace BinaryTree
 
         #region Methods for working with the binary tree
 
+        /// <summary>
+        /// Adds a new node with data to the binary search tree.
+        /// </summary>
+        /// <param name="data">The data of the binary search tree node.</param>
+        /// <exception cref="ArgumentNullException">Throws when <paramref name="data"/> is null.</exception>
         public void AddNode(T data)
         {
             if (ReferenceEquals(data, null))
@@ -128,6 +180,12 @@ namespace BinaryTree
             Count++;
         }
 
+        /// <summary>
+        /// Removes a node with data from the binary search tree.
+        /// </summary>
+        /// <param name="data">The data of the binary search tree node.</param>
+        /// <exception cref="ArgumentNullException">Throws when <paramref name="data"/> is null.</exception>
+        /// <returns>True if the deletion is successful; otherwise, false.</returns>
         public bool RemoveNode(T data)
         {
             if (ReferenceEquals(data, null))
@@ -154,6 +212,13 @@ namespace BinaryTree
             return false;           
         }
 
+        /// <summary>
+        /// Determines whether an element is in the binary search tree.
+        /// </summary>
+        /// <param name="data">The data of the binary search tree node.</param>
+        /// <exception cref="ArgumentNullException">Throws when <paramref name="data"/> or 
+        /// <see cref="root"/> is null.</exception>
+        /// <returns>True if item is found in the binary search tree; otherwise, false.</returns>
         public bool Contains(T data)
         {
             if (ReferenceEquals(data, null))
@@ -190,16 +255,31 @@ namespace BinaryTree
             return false;
         }
 
+        /// <summary>
+        /// Removes all nodes of the binary search tree.
+        /// </summary>
         public void Clear()
         {
             this.Root = null;
             this.Count = 0;
         }
 
+        /// <summary>
+        /// Produces a preorder of the binary search tree.
+        /// </summary>
+        /// <returns>A collection of binary search tree elements.</returns>
         public IEnumerable<T> PreOrder() => PreOrder(this.Root);
 
+        /// <summary>
+        /// Produces a inorder of the binary search tree.
+        /// </summary>
+        /// <returns>A collection of binary search tree elements.</returns>
         public IEnumerable<T> InOrder() => InOrder(this.Root);
 
+        /// <summary>
+        /// Produces a postorder of the binary search tree.
+        /// </summary>
+        /// <returns>A collection of binary search tree elements.</returns>
         public IEnumerable<T> PostOrder() => PostOrder(this.Root);
 
         #endregion Methods for working with the binary tree
@@ -269,6 +349,19 @@ namespace BinaryTree
         #endregion Private methods of ways of traversing a tree
 
         #region Private methods
+
+        private void AddCollection(IEnumerable<T> collection)
+        {
+            if (ReferenceEquals(null, collection))
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            foreach (var value in collection)
+            {
+                this.AddNode(value);
+            }
+        }
 
         private void RemoveRootNode()
         {

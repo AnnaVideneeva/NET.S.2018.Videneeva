@@ -5,7 +5,7 @@ namespace BinaryTree.Tests
     /// <summary>
     /// Provides methods for working with a book.
     /// </summary>
-    public class Book : IComparable<Book>
+    public class Book : IComparable<Book>, IEquatable<Book>
     {
         #region Fields
 
@@ -68,6 +68,71 @@ namespace BinaryTree.Tests
         }
 
         #endregion Properties
+
+        #region Overridden methods
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            return this.Equals((Book)obj);
+        }
+
+        /// <summary>
+        /// Serves as the  hash function.
+        /// </summary>
+        /// <returns>A hash code for the current object.</returns>
+        public override int GetHashCode()
+        {
+            int hashcode = this.Author.GetHashCode();
+            hashcode = (11 * hashcode) + this.Title.GetHashCode();
+            return hashcode;
+        }
+
+        #endregion Overridden methods
+
+        #region IEquatable interface implementation
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="other">The object to compare with the current object.</param>
+        /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
+        public bool Equals(Book other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return this.Author.Equals(other.Author)
+                && this.Title.Equals(other.Title);
+        }
+
+        #endregion IEquatable interface implementation
 
         #region IComparable<Book> interface implementation
 

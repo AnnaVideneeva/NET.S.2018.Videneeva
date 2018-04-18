@@ -5,9 +5,6 @@
     /// </summary>
     public struct Point
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-
         /// <summary>
         /// Inintializes a new instance of the <see cref="x"/> and <see cref="y"/>.
         /// </summary>
@@ -18,5 +15,15 @@
             this.X = x;
             this.Y = y;
         }
+
+        /// <summary>
+        /// The X coordinate of the point.
+        /// </summary>
+        public int X { get; set; }
+
+        /// <summary>
+        /// The Y coordinate of the point.
+        /// </summary>
+        public int Y { get; set; }
     }
 }
