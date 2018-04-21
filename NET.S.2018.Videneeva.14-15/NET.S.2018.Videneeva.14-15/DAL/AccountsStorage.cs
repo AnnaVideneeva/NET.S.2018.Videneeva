@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
+using DAL.Repositories;
 
-namespace DAL.Repositories
+namespace DAL
 {
     /// <summary>
     /// Provides methods for working with the data store.

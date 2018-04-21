@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountsFileStorage.cs" />
-    <Compile Include="Repositories\AccountsStorage.cs" />
+    <Compile Include="AccountsStorage.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
