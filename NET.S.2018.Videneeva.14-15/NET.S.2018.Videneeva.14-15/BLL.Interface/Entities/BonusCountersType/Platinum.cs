@@ -1,6 +1,6 @@
-﻿namespace BLL.Interface.Entities.BonusCounters
+﻿namespace BLL.Interface.Entities.BonusCountersType
 {
-    public class PlatinumCounter : BonusCounter
+    public class Platinum : BonusCounterType
     {
         #region Const fields
 
@@ -14,7 +14,7 @@
         /// <summary>
         /// Initializes the coefficients.
         /// </summary>
-        public PlatinumCounter() : base(CoeffCostReplenishment, CoeffCostBalanse)
+        public Platinum() : base(CoeffCostReplenishment, CoeffCostBalanse)
         {
         }
 

@@ -41,14 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BankAccount.cs" />
-    <Compile Include="Entities\BonusCounter.cs" />
+    <Compile Include="Entities\BonusCounterType.cs" />
     <Compile Include="Entities\BonusCounterFactory.cs" />
-    <Compile Include="Entities\BonusCounters\BaseCounter.cs" />
-    <Compile Include="Entities\BonusCounters\GoldCounter.cs" />
-    <Compile Include="Entities\BonusCounters\PlatinumCounter.cs" />
-    <Compile Include="Interfaces\GradingType.cs" />
+    <Compile Include="Entities\BonusCountersType\Base.cs" />
+    <Compile Include="Entities\BonusCountersType\Gold.cs" />
+    <Compile Include="Entities\BonusCountersType\Platinum.cs" />
+    <Compile Include="Entities\GradingType.cs" />
     <Compile Include="Interfaces\IBankAccountService.cs" />
     <Compile Include="Interfaces\IBonusCounter.cs" />
+    <Compile Include="Interfaces\IGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

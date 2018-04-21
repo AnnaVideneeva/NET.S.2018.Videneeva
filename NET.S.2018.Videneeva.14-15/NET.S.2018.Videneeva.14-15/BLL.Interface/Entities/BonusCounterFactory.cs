@@ -1,28 +1,27 @@
-﻿using BLL.Interface.Entities.BonusCounters;
-using BLL.Interface.Interfaces;
+﻿using BLL.Interface.Entities.BonusCountersType;
 using System;
 
 namespace BLL.Interface.Entities
 {
     public class BonusCounterFactory
     {
-        public static BonusCounter GetBonusCounter(GradingType gradingType)
+        public static BonusCounterType GetBonusCounter(GradingType gradingType)
         {
             switch (gradingType)
             {
                 case GradingType.Base:
                     {
-                        return new BaseCounter();
+                        return new Base();
                     }
 
                 case GradingType.Gold:
                     {
-                        return new GoldCounter();
+                        return new Gold();
                     }
 
                 case GradingType.Platinum:
                     {
-                        return new PlatinumCounter();
+                        return new Platinum();
                     }
                 default:
                     {

@@ -1,4 +1,4 @@
-﻿namespace BLL.Interface.Interfaces
+﻿namespace BLL.Interface.Entities
 {
     /// <summary>
     /// Provides types of account graduation.

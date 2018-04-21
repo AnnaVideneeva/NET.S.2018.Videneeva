@@ -1,27 +1,21 @@
-﻿using BLL.Interface.Interfaces;
+﻿using BLL.Interface.Entities;
+using BLL.Interface.Interfaces;
 
-namespace BLL.Interface.Entities
+namespace BLL.ServiceImplementation
 {
     public class BonusCounter : IBonusCounter
     {
-        #region  Fields
+        #region Fields
 
-        private readonly int CoeffCostReplenishment;
-        private readonly int CoeffCostBalanse;
+        BonusCounterType bonusCounter;
 
-        #endregion  Fields
+        #endregion Fields
 
         #region Constructor
 
-        /// <summary>
-        /// Full constructor to initialize the coefficients.
-        /// </summary>
-        /// <param name="coeffCostReplenishment">The coefficient of replenishment used in the replenishment of the account.</param>
-        /// <param name="coeffCostBalanse">The balance cost factor used when debiting an account.</param>
-        public BonusCounter(int coeffCostReplenishment, int coeffCostBalanse)
+        public BonusCounter(GradingType gradingType)
         {
-            CoeffCostReplenishment = coeffCostReplenishment;
-            CoeffCostBalanse = coeffCostBalanse;
+            bonusCounter = BonusCounterFactory.GetBonusCounter(gradingType);
         }
 
         #endregion Constructor
@@ -35,7 +29,7 @@ namespace BLL.Interface.Entities
         /// <returns>Increased bonus points.</returns>
         public virtual int Increase(int bonusPoints)
         {
-            return bonusPoints + CoeffCostReplenishment;
+            return bonusPoints + bonusCounter.CoeffCostReplenishment;
         }
 
         /// <summary>
@@ -45,9 +39,9 @@ namespace BLL.Interface.Entities
         /// <returns>Reduced bonus points.</returns>
         public virtual int Reduction(int bonusPoints)
         {
-            return (bonusPoints <= CoeffCostReplenishment)
+            return (bonusPoints <= bonusCounter.CoeffCostReplenishment)
                 ? 0
-                : bonusPoints - CoeffCostReplenishment;
+                : bonusPoints - bonusCounter.CoeffCostReplenishment;
         }
 
         #endregion Public methods to decrease/increase bonus points

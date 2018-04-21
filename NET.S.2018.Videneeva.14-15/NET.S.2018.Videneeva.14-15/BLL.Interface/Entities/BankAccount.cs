@@ -1,6 +1,4 @@
-﻿using BLL.Interface.Interfaces;
-using System;
-
+﻿using System;
 
 namespace BLL.Interface.Entities
 {
@@ -11,12 +9,11 @@ namespace BLL.Interface.Entities
     {
         #region Fields
 
-        private int number;
+        private int id;
         private string ownerName;
         private string ownerSurname;
         private double amount;
         private int bonusPoints;
-        private BonusCounter counter;
         private GradingType typeGrading;
 
         #endregion Fields
@@ -24,35 +21,22 @@ namespace BLL.Interface.Entities
         #region Constructors
 
         /// <summary>
-        /// A complete constructor to initialize the object.
+        /// Inintializes a new instance.
         /// </summary>
-        /// <param name="number">Account number.</param>
-        /// <param name="ownerName">Name of account holder.</param>
-        /// <param name="ownerSurname">Surname of account holder.</param>
-        /// <param name="amount">The amount on the account.</param>
-        /// <param name="bonusPoints">Bonus points on the account.</param>
-        /// <param name="gradingType">Type of account graduation.</param>
-        public BankAccount(int number, string ownerName, string ownerSurname, double amount, int bonusPoints, GradingType gradingType)
+        /// <param name="id">A bank account id.</param>
+        /// <param name="ownerName">Name of bank account holder.</param>
+        /// <param name="ownerSurname">Surname of bank account holder.</param>
+        /// <param name="amount">The amount on the bank account.</param>
+        /// <param name="bonusPoints">Bonus points on the bank account.</param>
+        /// <param name="gradingType">Type of bank account graduation.</param>
+        public BankAccount(int id, string ownerName, string ownerSurname, double amount, int bonusPoints, GradingType gradingType)
         {
-            this.Number = number;
+            this.Id = id;
             this.OwnerName = ownerName;
             this.OwnerSurname = ownerSurname;
             this.Amount = amount;
             this.BonusPoints = bonusPoints;
             this.TypeGrading = gradingType;
-            this.Counter = BonusCounterFactory.GetBonusCounter(gradingType);
-        }
-
-        /// <summary>
-        /// A constructor to initialize the object.
-        /// </summary>
-        /// <param name="number">Account number.</param>
-        /// <param name="ownerName">Name of account holder.</param>
-        /// <param name="ownerSurname">Surname of account holder.</param>
-        /// <param name="gradingType">Type of account graduation.</param>
-        public BankAccount(int number, string ownerName, string ownerSurname, GradingType gradingType)
-            : this(number, ownerName, ownerSurname, 0, 0, gradingType)
-        {
         }
 
         #endregion Constructors
@@ -60,15 +44,12 @@ namespace BLL.Interface.Entities
         #region Properties
 
         /// <summary>
-        /// Account number.
+        /// A bank account id.
         /// </summary>
-        public int Number
+        public int Id
         {
-            get
-            {
-                return this.number;
-            }
-
+            get => this.id;
+ 
             set
             {
                 if (value <= 0)
@@ -76,19 +57,16 @@ namespace BLL.Interface.Entities
                     throw new ArgumentException(nameof(value));
                 }
 
-                this.number = value;
+                this.id = value;
             }
         }
 
         /// <summary>
-        /// Name of account holder.
+        /// Name of bank account holder.
         /// </summary>
         public string OwnerName
         {
-            get
-            {
-                return this.ownerName;
-            }
+            get => this.ownerName;
 
             set
             {
@@ -102,14 +80,11 @@ namespace BLL.Interface.Entities
         }
 
         /// <summary>
-        /// Surname of account holder.
+        /// Surname of bank account holder.
         /// </summary>
         public string OwnerSurname
         {
-            get
-            {
-                return this.ownerSurname;
-            }
+            get => this.ownerSurname;
 
             set
             {
@@ -123,14 +98,11 @@ namespace BLL.Interface.Entities
         }
 
         /// <summary>
-        /// The amount on the account.
+        /// The amount on the bank account.
         /// </summary>
         public double Amount
         {
-            get
-            {
-                return this.amount;
-            }
+            get => this.amount;
 
             set
             {
@@ -144,16 +116,13 @@ namespace BLL.Interface.Entities
         }
 
         /// <summary>
-        /// Bonus points on the account.
+        /// Bonus points on the bank account.
         /// </summary>
         public int BonusPoints
         {
-            get
-            {
-                return this.bonusPoints;
-            }
+            get => this.bonusPoints;
 
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -165,16 +134,13 @@ namespace BLL.Interface.Entities
         }
 
         /// <summary>
-        /// Type of account graduation.
+        /// Type of bank account graduation.
         /// </summary>
         public GradingType TypeGrading
         {
-            get
-            {
-                return this.typeGrading;
-            }
+            get => this.typeGrading;
 
-            private set
+            set
             {
                 if (value == 0)
                 {
@@ -182,24 +148,6 @@ namespace BLL.Interface.Entities
                 }
 
                 this.typeGrading = value;
-            }
-        }
-
-        private BonusCounter Counter
-        {
-            get
-            {
-                return this.counter;
-            }
-
-            set
-            {
-                if (ReferenceEquals(null, value))
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-
-                this.counter = value;
             }
         }
 
@@ -214,7 +162,7 @@ namespace BLL.Interface.Entities
         /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(obj, null))
+            if (ReferenceEquals(null, obj))
             {
                 return false;
             }
@@ -239,7 +187,7 @@ namespace BLL.Interface.Entities
         /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public bool Equals(BankAccount other)
         {
-            if (ReferenceEquals(other, null))
+            if (ReferenceEquals(null, other))
             {
                 return false;
             }
@@ -249,12 +197,12 @@ namespace BLL.Interface.Entities
                 return true;
             }
 
-            return Number.Equals(other.Number)
-                && OwnerName.Equals(other.OwnerName)
-                && OwnerSurname.Equals(other.OwnerSurname)
-                && Amount.Equals(other.Amount)
-                && BonusPoints.Equals(other.BonusPoints)
-                && TypeGrading.Equals(other.TypeGrading);
+            return this.Id.Equals(other.id)
+                && this.OwnerName.Equals(other.OwnerName)
+                && this.OwnerSurname.Equals(other.OwnerSurname)
+                && this.Amount.Equals(other.Amount)
+                && this.BonusPoints.Equals(other.BonusPoints)
+                && this.TypeGrading.Equals(other.TypeGrading);
         }
 
         /// <summary>
@@ -263,7 +211,7 @@ namespace BLL.Interface.Entities
         /// <returns>The string of a data about account.</returns>
         public override string ToString()
         {
-            return $"Number: {Number};\nOwnerName: {OwnerName};\nOwnerSurname: {OwnerSurname};\nAmount: {Amount};\nBonusPoints: {BonusPoints};\nTypeGrading: {TypeGrading}.";
+            return $"Id: {Id};\nOwnerName: {OwnerName};\nOwnerSurname: {OwnerSurname};\nAmount: {Amount};\nBonusPoints: {BonusPoints};\nTypeGrading: {TypeGrading}.";
         }
 
         /// <summary>
@@ -272,46 +220,15 @@ namespace BLL.Interface.Entities
         /// <returns>A hash code for the current object.</returns>
         public override int GetHashCode()
         {
-            int hashcode = Number.GetHashCode();
-            hashcode = (11 * hashcode) + OwnerName.GetHashCode();
-            hashcode = (11 * hashcode) + OwnerSurname.GetHashCode();
-            hashcode = (11 * hashcode) + Amount.GetHashCode();
-            hashcode = (11 * hashcode) + BonusPoints.GetHashCode();
-            hashcode = (11 * hashcode) + TypeGrading.GetHashCode();
+            int hashcode = this.Id.GetHashCode();
+            hashcode = (11 * hashcode) + this.OwnerName.GetHashCode();
+            hashcode = (11 * hashcode) + this.OwnerSurname.GetHashCode();
+            hashcode = (11 * hashcode) + this.Amount.GetHashCode();
+            hashcode = (11 * hashcode) + this.BonusPoints.GetHashCode();
+            hashcode = (11 * hashcode) + this.TypeGrading.GetHashCode();
             return hashcode;
         }
 
-        #endregion Overridden methods
-
-        #region Public methods for account replenishment/debit from account
-
-        /// <summary>
-        /// Replenishes the account with the specified amount.
-        /// </summary>
-        /// <param name="amount">The amount to replenish the account.</param>
-        public void AccountReplenishment(double amount)
-        {
-            Amount = Amount + amount;
-            BonusPoints = Grading.IncreaseBonusPoints(BonusPoints);
-        }
-
-        /// <summary>
-        /// Removes the specified amount from the account.
-        /// </summary>
-        /// <param name="amount">Amount to withdraw from the account.</param>
-        /// <exception cref="ArgumentException">Throw when the amount to withdraw 
-        /// from the account more than the available account balance.</exception>
-        public void WithdrawalsFromAccount(double amount)
-        {
-            if (amount > Amount)
-            {
-                throw new ArgumentException(nameof(amount));
-            }
-
-            Amount = Amount - amount;
-            BonusPoints = Grading.ReductionBonusPoints(BonusPoints);
-        }
-
-        #endregion Public methods for account replenishment/debit from account
+        #endregion Overridden methods  
     }
 }

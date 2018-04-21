@@ -1,9 +1,9 @@
-﻿namespace BLL.Interface.Entities.BonusCounters
+﻿namespace BLL.Interface.Entities.BonusCountersType
 {
     /// <summary>
     /// Provides a score grading factor Base.
     /// </summary>
-    public class BaseCounter : BonusCounter
+    public class Base : BonusCounterType
     {
         #region Const fields
 
@@ -17,7 +17,7 @@
         /// <summary>
         /// Initializes the coefficients.
         /// </summary>
-        public BaseCounter() : base(CoeffCostReplenishment, CoeffCostBalanse)
+        public Base() : base(CoeffCostReplenishment, CoeffCostBalanse)
         {
         }
 
