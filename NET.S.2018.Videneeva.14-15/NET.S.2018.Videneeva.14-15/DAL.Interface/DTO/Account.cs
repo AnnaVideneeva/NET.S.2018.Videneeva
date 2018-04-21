@@ -1,34 +1,14 @@
 ﻿namespace DAL.Interface.DTO
 {
+    /// <summary>
+    /// Contains information about the account to work with it.
+    /// </summary>
     public class Account
     {
-        #region Constructors
-
         /// <summary>
-        /// A complete constructor to initialize the object.
+        /// Account id.
         /// </summary>
-        /// <param name="number">Account number.</param>
-        /// <param name="ownerName">Name of account holder.</param>
-        /// <param name="ownerSurname">Surname of account holder.</param>
-        /// <param name="amount">The amount on the account.</param>
-        /// <param name="bonusPoints">Bonus points on the account.</param>
-        /// <param name="gradingType">Type of account graduation.</param>
-        public Account(int number, string ownerName, string ownerSurname, double amount, int bonusPoints, int gradingType)
-        {
-            this.Number = number;
-            this.OwnerName = ownerName;
-            this.OwnerSurname = ownerSurname;
-            this.Amount = amount;
-            this.BonusPoints = bonusPoints;
-            this.TypeGrading = gradingType;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Account number.
-        /// </summary>
-        public int Number { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Name of account holder.

@@ -1,38 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 
 namespace DAL.Repositories
 {
-    public class AccountsStorage : IRepository<Account>
+    /// <summary>
+    /// Provides methods for working with the data store.
+    /// </summary>
+    public class AccountsStorage
     {
         #region Fields
 
-        private List<Account> accounts;
+        private IRepository repository;
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Inintializes a new instance.
+        /// </summary>
         public AccountsStorage()
         {
-            this.Accounts = new List<Account>();
-        }
-
-        public AccountsStorage(IEnumerable<Account> collection)
-        {
-            this.Accounts = collection.ToList();
+            this.Repository = new AccountsFileStorage();
         }
 
         #endregion Constructors
 
         #region Properties
 
-        public List<Account> Accounts
+        private IRepository Repository
         {
-            get => this.accounts;
+            get => this.repository;
 
             set
             {
@@ -41,80 +41,78 @@ namespace DAL.Repositories
                     throw new ArgumentNullException(nameof(value));
                 }
 
-                this.accounts = value;
+                this.repository = value;
             }
         }
 
         #endregion Properties
 
-        #region IRepository<Account> implementation
+        #region Public methods for work with repository
 
+        /// <summary>
+        /// Gets a list of all objects.
+        /// </summary>
+        /// <returns>The sequence to type as IEnumerable<Account>.</returns>
         public IEnumerable<Account> GetAll()
         {
-            return this.Accounts;
+            return this.Repository.GetAll();
         }
 
-        public Account Get(int number)
-        {
-            Account account = Accounts.Find(element => element.Number == number);
+        /// <summary>
+        /// Gets one object by id.
+        /// </summary>
+        /// <param name="id">An object id.</param>
+        /// <returns>An object with such <paramref name="id"/>.</returns>
+        public Account Get(int id)
+        {  
+            return this.Repository.Get(id);
+        }
 
+        /// <summary>
+        /// Adds new object to storage.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="account"/> is null.</exception>
+        /// <param name="account">A new object.</param>
+        public void Add(Account account)
+        {
             if (ReferenceEquals(null, account))
             {
-                throw new KeyNotFoundException("Account with such number not found.");
+                throw new ArgumentNullException(nameof(account));
             }
 
-            return account;
+            this.Repository.Add(account);
         }
 
-        public void Add(Account item)
+        /// <summary>
+        /// Updates the data about the object.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="account"/> is null.</exception>
+        /// <param name="account">The data about the object.</param>
+        public void Update(Account account)
         {
-            if (ReferenceEquals(null, item))
+            if (ReferenceEquals(null, account))
             {
-                throw new ArgumentNullException(nameof(item));
+                throw new ArgumentNullException(nameof(account));
             }
 
-            if (Accounts.Exists(element => element.Number == item.Number))
-            {
-                throw new DuplicateWaitObjectException("This account already exists.");
-            }
-
-            Accounts.Add(item);
-            AccountsFileStorage.AppendDataToFile(item);
+            this.Repository.Add(account);
         }
 
-        public void Update(Account item)
+        /// <summary>
+        /// Deletes the data about the object.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="account"/> is null.</exception>
+        /// <param name="account">The data about the object.</param>
+        public void Delete(Account account)
         {
-            if (ReferenceEquals(null, item))
+            if (ReferenceEquals(null, account))
             {
-                throw new ArgumentNullException(nameof(item));
+                throw new ArgumentNullException(nameof(account));
             }
 
-            if (!Accounts.Exists(element => element.Number == item.Number))
-            {
-                throw new KeyNotFoundException("This account not found.");
-            }
-
-            this.Accounts.Remove(this.Accounts.Find(element => element.Number == item.Number));
-            this.Accounts.Add(item);
-            AccountsFileStorage.WriteDataToFile(this.Accounts);
+            this.Repository.Delete(account);
         }
 
-        public void Delete(Account item)
-        {
-            if (ReferenceEquals(null, item))
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
-
-            if (!Accounts.Exists(element => element.Number == item.Number))
-            {
-                throw new KeyNotFoundException("This account not found.");
-            }
-
-            this.Accounts.Remove(this.Accounts.Find(element => element.Number == item.Number));
-            AccountsFileStorage.WriteDataToFile(this.Accounts);
-        }
-
-        #endregion IRepository<Account> implementation
+        #endregion Public methods for work with repository
     }
 }

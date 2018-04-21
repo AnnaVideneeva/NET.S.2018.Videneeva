@@ -1,12 +1,16 @@
-﻿using DAL.Interface.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DAL.Interface.DTO;
+using DAL.Interface.Interfaces;
 
 namespace DAL.Repositories
 {
-    public static class AccountsFileStorage
+    /// <summary>
+    /// Provides methods for working with the data store as a file.
+    /// </summary>
+    public class AccountsFileStorage : IRepository
     {
         #region Static constructor
 
@@ -29,13 +33,97 @@ namespace DAL.Repositories
 
         #endregion Properties
 
-        #region Method for working with file
+        #region IRepository<Account> implementation
 
         /// <summary>
-        /// Reads account data from a file and creates a collection.
+        /// Gets a list of all objects.
         /// </summary>
-        /// <returns>The collection of accounts.</returns>
-        public static List<Account> ReadDataFromFile()
+        /// <returns>The sequence to type as IEnumerable<Account>.</returns>
+        public IEnumerable<Account> GetAll()
+        {
+            return this.ReadDataFromFile();
+        }
+
+        /// <summary>
+        /// Gets one object by id.
+        /// </summary>
+        /// <param name="id">An object id.</param>
+        /// <exception cref="KeyNotFoundException">Throw when an object with such <paramref name="id"/> is not found.</exception>
+        /// <returns>An object with such <paramref name="id"/>.</returns>
+        public Account Get(int id)
+        {
+            Account account = this.ReadDataFromFile()
+                .ToList()
+                .Find(element => element.Id == id);
+
+            if (ReferenceEquals(null, account))
+            {
+                throw new KeyNotFoundException("Account with such id is not found.");
+            }
+
+            return account;
+        }
+
+        /// <summary>
+        /// Adds new object to file.
+        /// </summary>
+        /// <exception cref="DuplicateWaitObjectException">Throw when <paramref name="account"/> already exists.</exception>
+        /// <param name="account">A new object.</param>
+        public void Add(Account account)
+        {
+            List<Account> listAccounts = this.ReadDataFromFile().ToList();
+
+            if (listAccounts.Exists(element => element.Id == account.Id))
+            {
+                throw new DuplicateWaitObjectException("This account already exists.");
+            }
+
+            listAccounts.Add(account);
+            this.AppendDataToFile(account);
+        }
+
+        /// <summary>
+        /// Updates the data about the object.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Throw when id of <paramref name="account"/> is not found.</exception>
+        /// <param name="account">The data about the object.</param>
+        public void Update(Account account)
+        {
+            List<Account> listAccounts = this.ReadDataFromFile().ToList();
+
+            if (!listAccounts.Exists(element => element.Id == account.Id))
+            {
+                throw new KeyNotFoundException("This account is not found.");
+            }
+
+            listAccounts.Remove(listAccounts.Find(element => element.Id == account.Id);
+            listAccounts.Add(account);
+            this.WriteDataToFile(listAccounts);
+        }
+
+        /// <summary>
+        /// Deletes the data about the object.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Throw when id of <paramref name="account"/> is not found.</exception>
+        /// <param name="account">The data about the object.</param>
+        public void Delete(Account account)
+        {
+            List<Account> listAccounts = this.ReadDataFromFile().ToList();
+
+            if (!listAccounts.Exists(element => element.Id == account.Id))
+            {
+                throw new KeyNotFoundException("This account is not found.");
+            }
+
+            listAccounts.Remove(listAccounts.Find(element => element.Id == account.Id));
+            this.WriteDataToFile(listAccounts);
+        }
+
+        #endregion IRepository<Account> implementation
+
+        #region Private method for working with file
+
+        private IEnumerable<Account> ReadDataFromFile()
         {
             var listAccounts = new List<Account>();
 
@@ -49,13 +137,17 @@ namespace DAL.Repositories
 
             while (reader.PeekChar() != -1)
             {
-                listAccounts.Add(new Account(
-                    reader.ReadInt32(),
-                    reader.ReadString(),
-                    reader.ReadString(),
-                    reader.ReadDouble(),
-                    reader.ReadInt32(),
-                    reader.ReadInt32()));
+                Account account = new Account
+                {
+                    Id = reader.ReadInt32(),
+                    OwnerName = reader.ReadString(),
+                    OwnerSurname = reader.ReadString(),
+                    Amount = reader.ReadDouble(),
+                    BonusPoints = reader.ReadInt32(),
+                    TypeGrading = reader.ReadInt32()
+                };
+
+                listAccounts.Add(account);
             }
 
             reader.Close();
@@ -64,11 +156,7 @@ namespace DAL.Repositories
             return listAccounts;
         }
 
-        /// <summary>
-        /// Writes the collection to a file.
-        /// </summary>
-        /// <param name="listAccounts">The collection of accounts.</param>
-        public static void WriteDataToFile(List<Account> listAccounts)
+        private void WriteDataToFile(IEnumerable<Account> listAccounts)
         {
             if (ReferenceEquals(null, listAccounts))
             {
@@ -78,22 +166,21 @@ namespace DAL.Repositories
             FileStream file = new FileStream(Path, FileMode.Create, FileAccess.Write);
             BinaryWriter writer = new BinaryWriter(file);
 
-            for (int i = 0; i < listAccounts.Count; i++)
+            foreach(var account in listAccounts)
             {
-                writer.Write(listAccounts.ElementAt(i).Number);
-                writer.Write(listAccounts.ElementAt(i).OwnerName);
-                writer.Write(listAccounts.ElementAt(i).OwnerSurname);
-                writer.Write(listAccounts.ElementAt(i).Amount);
-                writer.Write(listAccounts.ElementAt(i).BonusPoints);
-                writer.Write((int)listAccounts.ElementAt(i).TypeGrading);
+                writer.Write(account.Id);
+                writer.Write(account.OwnerName);
+                writer.Write(account.OwnerSurname);
+                writer.Write(account.Amount);
+                writer.Write(account.BonusPoints);
+                writer.Write(account.TypeGrading);
             }
 
             writer.Close();
             file.Close();
         }
 
-
-        public static void AppendDataToFile(Account account)
+        private void AppendDataToFile(Account account)
         {
             if (ReferenceEquals(null, account))
             {
@@ -103,7 +190,7 @@ namespace DAL.Repositories
             FileStream file = new FileStream(Path, FileMode.Append, FileAccess.Write);
             BinaryWriter writer = new BinaryWriter(file);
 
-            writer.Write(account.Number);
+            writer.Write(account.Id);
             writer.Write(account.OwnerName);
             writer.Write(account.OwnerSurname);
             writer.Write(account.Amount);
@@ -114,6 +201,6 @@ namespace DAL.Repositories
             file.Close();
         }
 
-        #endregion Method for working with file
+        #endregion Private method for working with file
     }
 }
