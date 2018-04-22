@@ -52,7 +52,7 @@ namespace BLL.Interface.Entities
  
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentException(nameof(value));
                 }

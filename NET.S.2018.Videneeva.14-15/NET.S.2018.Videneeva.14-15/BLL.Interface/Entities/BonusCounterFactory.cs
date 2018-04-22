@@ -3,8 +3,16 @@ using System;
 
 namespace BLL.Interface.Entities
 {
+    /// <summary>
+    /// Provides method for getting a bonus counter.
+    /// </summary>
     public class BonusCounterFactory
     {
+        /// <summary>
+        /// Returns a bonus counter by <paramref name="gradingType"/>.
+        /// </summary>
+        /// <param name="gradingType">A grading type.</param>
+        /// <returns>A bonus counter by <paramref name="gradingType"/>.</returns>
         public static BonusCounterType GetBonusCounter(GradingType gradingType)
         {
             switch (gradingType)

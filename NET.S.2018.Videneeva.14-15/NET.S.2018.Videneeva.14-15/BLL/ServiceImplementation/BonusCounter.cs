@@ -13,6 +13,10 @@ namespace BLL.ServiceImplementation
 
         #region Constructor
 
+        /// <summary>
+        /// Inintializes a new instance with <paramref name="gradingType"/>.
+        /// </summary>
+        /// <param name="gradingType">A grading type.</param>
         public BonusCounter(GradingType gradingType)
         {
             bonusCounter = BonusCounterFactory.GetBonusCounter(gradingType);

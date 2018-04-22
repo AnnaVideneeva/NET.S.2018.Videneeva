@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace BLL.ServiceImplementation
 {
+    /// <summary>
+    /// Provides methods for working with a bank accounts list.
+    /// </summary>
     public class BankAccountService : IBankAccountService
     {
         #region Fields
@@ -21,28 +24,49 @@ namespace BLL.ServiceImplementation
 
         #endregion Fields
 
-        #region Constructor
+        #region Constructors
 
-        public BankAccountService(IGenerator generator, IRepository repository)
+        /// <summary>
+        /// Initializes a new state of the object by <paramref name="listBankAccounts"/>.
+        /// </summary>
+        /// <param name="listBankAccounts">The sequence of objects of BankAccount type.</param>
+        public BankAccountService(IEnumerable<BankAccount> listBankAccounts)
         {
-            this.Generator = generator;
+            this.ListAccounts = listBankAccounts.ToList();
+            this.Repository = new AccountsFileStorage();
+            this.Generator = new Generator(this.ListAccounts.Count);
+        }
+
+        /// <summary>
+        /// Initializes a new state of the object by <paramref name="repository"/>.
+        /// </summary>
+        /// <param name="repository">The storage for objects of BankAccount type.</param>
+        public BankAccountService(IRepository repository)
+        {
             this.Repository = repository;
-            this.ListAccounts = repository.GetAll().ToListBankAccount();
+            this.ListAccounts = this.GetListBankAccounts();
+            this.Generator = new Generator(this.ListAccounts.Count);
         }
 
-        public BankAccountService() : this(new Generator(), new AccountsFileStorage())
+        /// <summary>
+        /// Initializes a new state of the object.
+        /// </summary>
+        public BankAccountService() : this(new AccountsFileStorage())
         {
         }
 
-        #endregion Constructor
+        #endregion Constructors
 
         #region Properties
 
-        public IGenerator Generator
+        /// <summary>
+        /// Gets and sets id geterator. 
+        /// </summary>
+        private IGenerator Generator
         {
             get => this.generator;
 
-            private set
+            set
             {
                 if (ReferenceEquals(null, value))
                 {
@@ -53,11 +77,14 @@ namespace BLL.ServiceImplementation
             }
         }
 
-        public IRepository Repository
+        /// <summary>
+        /// Gets and sets objects of BankAccount type.
+        /// </summary>
+        private IRepository Repository
         {
             get => this.repository;
 
-            private set
+            set
             {
                 if (ReferenceEquals(null, value))
                 {
@@ -68,11 +95,14 @@ namespace BLL.ServiceImplementation
             }
         }
 
-        public List<BankAccount> ListAccounts
+        /// <summary>
+        /// Gets and sets a sequence of objects of BankAccount type.
+        /// </summary>
+        private List<BankAccount> ListAccounts
         {
             get => this.listAccounts;
 
-            private set
+            set
             {
                 if (ReferenceEquals(null, value))
                 {
@@ -88,6 +118,15 @@ namespace BLL.ServiceImplementation
         #region IBankAccountService implementation
 
         /// <summary>
+        /// Gets a list of all objects.
+        /// </summary>
+        /// <returns>The sequence to type as IEnumerable<BankAccount>.</returns>
+        public IEnumerable<BankAccount> GetAll()
+        {
+            return this.ListAccounts;
+        }
+
+        /// <summary>
         /// Opens a new bank account.
         /// </summary>
         /// <param name="ownerName">Name of bank account holder.</param>
@@ -96,16 +135,31 @@ namespace BLL.ServiceImplementation
         /// <param name="gradingType">Type of bank account graduation.</param>
         public void Open(string ownerName, string ownerSurname, double amount, GradingType gradingType)
         {
-         
+            int id = this.Generator.GenerateId();
+
+            BankAccount bankAccount = new BankAccount(id, ownerName, ownerSurname, 0, 0, gradingType);
+
+            this.ListAccounts.Add(bankAccount);
+            this.Repository.Add(bankAccount.ToAccount());
+
+            this.Refill(id, amount);
         }
 
         /// <summary>
         /// Closes a bank account.
         /// </summary>
-        /// <param name="id">The id of the bank account.</param>
+        /// <param name="id">The bank account id.</param>
         public void Close(int id)
         {
+            BankAccount bankAccount = this.ListAccounts.Find(element => element.Id == id);
 
+            if (ReferenceEquals(null, bankAccount))
+            {
+                throw new KeyNotFoundException("The bank account with such id is not found.");
+            }
+
+            this.Repository.Delete(bankAccount.ToAccount());
+            this.ListAccounts.Remove(bankAccount);
         }
 
         /// <summary>
@@ -113,9 +167,31 @@ namespace BLL.ServiceImplementation
         /// </summary>
         /// <param name="id">The bank account id.</param>
         /// <param name="amount">The amount to refill.</param>
-        public void Refill(int id, decimal amount)
+        public void Refill(int id, double amount)
         {
+            if (amount <= 0)
+            {
+                throw new ArgumentException("Amount is not be negative.", nameof(amount));
+            }
 
+            BankAccount bankAccount = this.ListAccounts.Find(element => element.Id == id);
+
+            if (ReferenceEquals(null, bankAccount))
+            {
+                throw new KeyNotFoundException("The bank account with such id is not found.");
+            }
+
+            int index = this.ListAccounts.IndexOf(bankAccount);
+            this.ListAccounts.Remove(bankAccount);
+
+            IBonusCounter bonusCounter = new BonusCounter(bankAccount.TypeGrading);
+
+            bankAccount.Amount = bankAccount.Amount + amount;
+            bankAccount.BonusPoints = bonusCounter.Increase(bankAccount.BonusPoints);
+
+            this.Repository.Update(bankAccount.ToAccount());
+
+            this.ListAccounts.Insert(index, bankAccount);
         }
 
         /// <summary>
@@ -123,12 +199,49 @@ namespace BLL.ServiceImplementation
         /// </summary>
         /// <param name="id">The bank account id.</param>
         /// <param name="amount">The amount to withdrawal.</param>
-        public void Withdrawal(int id, decimal amount)
+        public void Withdrawal(int id, double amount)
         {
+            if (amount <= 0)
+            {
+                throw new ArgumentException("Amount is not be negative.", nameof(amount));
+            }
 
+            BankAccount bankAccount = this.ListAccounts.Find(element => element.Id == id);
+
+            if (ReferenceEquals(null, bankAccount))
+            {
+                throw new KeyNotFoundException("The bank account with such id is not found.");
+            }
+
+            int index = this.ListAccounts.IndexOf(bankAccount);
+            this.ListAccounts.Remove(bankAccount);
+
+            IBonusCounter bonusCounter = new BonusCounter(bankAccount.TypeGrading);
+
+            bankAccount.Amount = bankAccount.Amount - amount;
+            bankAccount.BonusPoints = bonusCounter.Reduction(bankAccount.BonusPoints);
+
+            this.Repository.Update(bankAccount.ToAccount());
+
+            this.ListAccounts.Insert(index, bankAccount);
         }
-        
+
         #endregion IBankAccountService implementation
 
+        #region Private methods
+
+        private List<BankAccount> GetListBankAccounts()
+        {
+            List<BankAccount> listBankAccounts = this.Repository.GetAll().ToListBankAccount();
+
+            if (ReferenceEquals(null, listBankAccounts))
+            {
+                return new List<BankAccount>();
+            }
+
+            return listBankAccounts;
+        }
+
+        #endregion Private methods
     }
 }

@@ -4,8 +4,8 @@
     {
         #region Const fields
 
-        private const int CoeffCostReplenishment = 6;
-        private const int CoeffCostBalanse = 7;
+        private const int PlatinumCoeffCostReplenishment = 6;
+        private const int PlatinumCoeffCostBalanse = 7;
 
         #endregion Const fields
 
@@ -14,7 +14,7 @@
         /// <summary>
         /// Initializes the coefficients.
         /// </summary>
-        public Platinum() : base(CoeffCostReplenishment, CoeffCostBalanse)
+        public Platinum() : base(PlatinumCoeffCostReplenishment, PlatinumCoeffCostBalanse)
         {
         }
 

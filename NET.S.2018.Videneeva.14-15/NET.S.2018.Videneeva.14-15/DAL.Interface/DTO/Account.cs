@@ -28,7 +28,7 @@
         /// <summary>
         /// Bonus points on the account.
         /// </summary>
-        public int BonusPoints { get; set} 
+        public int BonusPoints { get; set;  } 
 
         /// <summary>
         /// Type of account graduation.

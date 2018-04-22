@@ -1,4 +1,5 @@
 ﻿using BLL.Interface.Interfaces;
+using System;
 
 namespace BLL.ServiceImplementation
 {
@@ -7,6 +8,12 @@ namespace BLL.ServiceImplementation
     /// </summary>
     public class Generator : IGenerator
     {
+        #region Fields
+
+        private int id;
+
+        #endregion Fields
+
         #region Constructor
 
         /// <summary>
@@ -14,7 +21,15 @@ namespace BLL.ServiceImplementation
         /// </summary>
         public Generator()
         {
-            Id = 0;
+            this.Id = 0;
+        }
+
+        /// <summary>
+        /// Inintializes a new instance.
+        /// </summary>
+        public Generator(int id)
+        {
+            this.Id = id;
         }
 
         #endregion Constructor
@@ -24,7 +39,20 @@ namespace BLL.ServiceImplementation
         /// <summary>
         /// Gets and sets Id.
         /// </summary>
-        private int Id { get; set; }
+        private int Id
+        {
+            get => this.id;
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Id is not be negative.", nameof(value));
+                }
+
+                this.id = value;
+            }
+        }
 
         #endregion Properties
 

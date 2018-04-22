@@ -91,13 +91,18 @@ namespace DAL.Repositories
         {
             List<Account> listAccounts = this.ReadDataFromFile().ToList();
 
-            if (!listAccounts.Exists(element => element.Id == account.Id))
+            Account findingAccount = listAccounts.Find(element => element.Id == account.Id);
+
+            if (ReferenceEquals(null, findingAccount))
             {
                 throw new KeyNotFoundException("This account is not found.");
             }
 
-            listAccounts.Remove(listAccounts.Find(element => element.Id == account.Id);
-            listAccounts.Add(account);
+            int index = listAccounts.IndexOf(findingAccount);
+
+            listAccounts.Remove(findingAccount);
+            listAccounts.Insert(index, account);
+
             this.WriteDataToFile(listAccounts);
         }
 
@@ -110,12 +115,15 @@ namespace DAL.Repositories
         {
             List<Account> listAccounts = this.ReadDataFromFile().ToList();
 
-            if (!listAccounts.Exists(element => element.Id == account.Id))
+            Account findingAccount = listAccounts.Find(element => element.Id == account.Id);
+
+            if (ReferenceEquals(null, findingAccount))
             {
                 throw new KeyNotFoundException("This account is not found.");
             }
 
-            listAccounts.Remove(listAccounts.Find(element => element.Id == account.Id));
+            listAccounts.Remove(findingAccount);
+
             this.WriteDataToFile(listAccounts);
         }
 
@@ -129,11 +137,6 @@ namespace DAL.Repositories
 
             FileStream file = new FileStream(Path, FileMode.Open, FileAccess.Read);
             BinaryReader reader = new BinaryReader(file);
-
-            if (reader.PeekChar() == -1)
-            {
-                throw new IOException("File is empty.");
-            }
 
             while (reader.PeekChar() != -1)
             {

@@ -9,7 +9,11 @@ namespace BLL.Mappers
     /// </summary>
     public static class BankAccountMapper
     {
-
+        /// <summary>
+        /// Represent <paramref name="listBankAccount"/> as list objects of Account type.
+        /// </summary>
+        /// <param name="listBankAccount">The sequence objects of BankAccount type.</param>
+        /// <returns>The list objects of Account type.</returns>
         public static List<Account> ToListAccount(this IEnumerable<BankAccount> listBankAccount)
         {
             if (ReferenceEquals(listBankAccount, null))
@@ -27,6 +31,11 @@ namespace BLL.Mappers
             return listAccouns;
         }
 
+        /// <summary>
+        /// Represent <paramref name="listAccount"/> as list objects of BankAccount type.
+        /// </summary>
+        /// <param name="listAccount">The sequence of objects of Account type.</param>
+        /// <returns>The list of objects of BankAccount type.</returns>
         public static List<BankAccount> ToListBankAccount(this IEnumerable<Account> listAccount)
         {
             if (ReferenceEquals(listAccount, null))
