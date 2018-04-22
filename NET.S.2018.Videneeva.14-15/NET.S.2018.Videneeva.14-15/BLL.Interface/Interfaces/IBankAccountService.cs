@@ -1,16 +1,9 @@
-﻿using System.Collections.Generic;
-using BLL.Interface.Entities;
+﻿using BLL.Interface.Entities;
 
 namespace BLL.Interface.Interfaces
 {
     public interface IBankAccountService
     {
-        /// <summary>
-        /// Gets a sequence of all bank accounts.
-        /// </summary>
-        /// <returns>The sequence of all bank accounts.</returns>
-        IEnumerable<BankAccount> GetAll();
-
         /// <summary>
         /// Opens a new bank account.
         /// </summary>

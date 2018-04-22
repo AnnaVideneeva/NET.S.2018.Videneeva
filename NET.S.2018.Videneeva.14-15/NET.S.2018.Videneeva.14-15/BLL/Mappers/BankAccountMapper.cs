@@ -1,5 +1,6 @@
 ﻿using BLL.Interface.Entities;
 using DAL.Interface.DTO;
+using System.Collections.Generic;
 
 namespace BLL.Mappers
 {
@@ -8,6 +9,41 @@ namespace BLL.Mappers
     /// </summary>
     public static class BankAccountMapper
     {
+
+        public static List<Account> ToListAccount(this IEnumerable<BankAccount> listBankAccount)
+        {
+            if (ReferenceEquals(listBankAccount, null))
+            {
+                return null;
+            }
+
+            var listAccouns = new List<Account>();
+
+            foreach (var account in listBankAccount)
+            {
+                listAccouns.Add(account.ToAccount());
+            }
+
+            return listAccouns;
+        }
+
+        public static List<BankAccount> ToListBankAccount(this IEnumerable<Account> listAccount)
+        {
+            if (ReferenceEquals(listAccount, null))
+            {
+                return null;
+            }
+
+            var listBankAccouns = new List<BankAccount>();
+
+            foreach (var account in listAccount)
+            {
+                listBankAccouns.Add(account.ToBankAccount());
+            }
+
+            return listBankAccouns;
+        }
+
         /// <summary>
         /// Represent <paramref name="bankAccount"/> as an object of Account type.
         /// </summary>
