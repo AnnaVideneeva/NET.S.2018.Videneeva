@@ -27,13 +27,25 @@ namespace BLL.ServiceImplementation
         #region Constructors
 
         /// <summary>
+        /// Initializes a new state of the object by <paramref name="repository"/> and <paramref name="generator"/>.
+        /// </summary>
+        /// <param name="repository">The storage for objects of BankAccount type.</param>
+        /// <param name="generator">The generator id.</param>
+        public BankAccountService(IRepository repository, IGenerator generator)
+        {
+            this.Repository = repository;
+            this.ListAccounts = this.GetListBankAccounts();
+            this.Generator = generator;
+        }
+
+        /// <summary>
         /// Initializes a new state of the object by <paramref name="listBankAccounts"/>.
         /// </summary>
         /// <param name="listBankAccounts">The sequence of objects of BankAccount type.</param>
         public BankAccountService(IEnumerable<BankAccount> listBankAccounts)
         {
             this.ListAccounts = listBankAccounts.ToList();
-            this.Repository = new AccountsFileStorage();
+            this.Repository = new AccountsFileStorage(listBankAccounts.ToListAccount());
             this.Generator = new Generator(this.ListAccounts.Count);
         }
 
@@ -232,7 +244,9 @@ namespace BLL.ServiceImplementation
 
         private List<BankAccount> GetListBankAccounts()
         {
-            List<BankAccount> listBankAccounts = this.Repository.GetAll().ToListBankAccount();
+            List<BankAccount> listBankAccounts = this.Repository
+                .GetAll()
+                .ToListBankAccount();
 
             if (ReferenceEquals(null, listBankAccounts))
             {

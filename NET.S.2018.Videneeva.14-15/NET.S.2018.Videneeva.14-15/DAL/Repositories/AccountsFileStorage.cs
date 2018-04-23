@@ -24,6 +24,19 @@ namespace DAL.Repositories
 
         #endregion Static constructor
 
+        #region Constructors
+
+        public AccountsFileStorage(IEnumerable<Account> listAccounts)
+        {
+            this.WriteDataToFile(listAccounts);
+        }
+
+        public AccountsFileStorage()
+        {
+        }
+
+        #endregion Constructors
+
         #region Properties
 
         /// <summary>
