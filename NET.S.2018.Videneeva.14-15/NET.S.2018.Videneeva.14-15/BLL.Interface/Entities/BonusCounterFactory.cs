@@ -1,5 +1,5 @@
-﻿using BLL.Interface.Entities.BonusCountersType;
-using System;
+﻿using System;
+using BLL.Interface.Entities.BonusCountersType;
 
 namespace BLL.Interface.Entities
 {
@@ -31,6 +31,7 @@ namespace BLL.Interface.Entities
                     {
                         return new Platinum();
                     }
+
                 default:
                     {
                         throw new ArgumentException("This type of gradation does not exist.", nameof(gradingType));

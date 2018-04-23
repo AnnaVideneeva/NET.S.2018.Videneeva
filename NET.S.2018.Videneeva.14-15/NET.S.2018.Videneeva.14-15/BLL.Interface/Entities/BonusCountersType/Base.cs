@@ -7,7 +7,6 @@
     {
         #region Const fields
 
-
         private const int BaseCoeffCostReplenishment = 2;
         private const int BaseCoeffCostBalanse = 3;
 

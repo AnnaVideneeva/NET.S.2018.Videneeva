@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using BLL.ServiceImplementation;
-using System.Collections.Generic;
-using BLL.Interface.Entities;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BLL.Interface.Entities;
+using BLL.ServiceImplementation;
+using NUnit.Framework;
 
 namespace BLL.Tests
 {
@@ -20,9 +20,9 @@ namespace BLL.Tests
         [Test]
         public void GetAll_SuccessfulExecution()
         {
-            bankAccountService = new BankAccountService(GetBankAccounts());
+            this.bankAccountService = new BankAccountService(GetBankAccounts());
 
-            Assert.AreEqual(bankAccountService.GetAll(), GetBankAccounts());
+            Assert.AreEqual(this.bankAccountService.GetAll(), GetBankAccounts());
         }
 
         [TestCase("Videneeva", "Anna", 100, GradingType.Gold, ExpectedResult = true)]
@@ -33,14 +33,14 @@ namespace BLL.Tests
         [TestCase("Kutircina", "Elizaveta", 600, GradingType.Platinum, ExpectedResult = true)]
         public bool Open_SuccessfulExecution(string ownerName, string ownerSurname, double amount, GradingType gradingType)
         {
-            bankAccountService = new BankAccountService(GetNewBankAccounts());
+            this.bankAccountService = new BankAccountService(GetNewBankAccounts());
 
-            bankAccountService.Open(ownerName, ownerSurname, amount, gradingType);
+            this.bankAccountService.Open(ownerName, ownerSurname, amount, gradingType);
 
-            return bankAccountService.GetAll().Last().OwnerName == ownerName
-                && bankAccountService.GetAll().Last().OwnerSurname == ownerSurname
-                && bankAccountService.GetAll().Last().Amount == amount
-                && bankAccountService.GetAll().Last().TypeGrading == gradingType;
+            return this.bankAccountService.GetAll().Last().OwnerName == ownerName
+                && this.bankAccountService.GetAll().Last().OwnerSurname == ownerSurname
+                && this.bankAccountService.GetAll().Last().Amount == amount
+                && this.bankAccountService.GetAll().Last().TypeGrading == gradingType;
         }
 
         [TestCase(0, ExpectedResult = 5)]
@@ -51,11 +51,11 @@ namespace BLL.Tests
         [TestCase(5, ExpectedResult = 5)]
         public int Close_SuccessfulExecution(int id)
         {
-            bankAccountService = new BankAccountService(GetBankAccounts());
+            this.bankAccountService = new BankAccountService(GetBankAccounts());
 
-            bankAccountService.Close(id);
+            this.bankAccountService.Close(id);
 
-            return bankAccountService.GetAll().Count();
+            return this.bankAccountService.GetAll().Count();
         }
 
         [TestCase(0, 10, ExpectedResult = 110)]
@@ -66,11 +66,11 @@ namespace BLL.Tests
         [TestCase(5, 10, ExpectedResult = 610)]
         public double Refill_SuccessfulExecution(int id, double amount)
         {
-            bankAccountService = new BankAccountService(GetBankAccounts());
+            this.bankAccountService = new BankAccountService(GetBankAccounts());
 
-            bankAccountService.Refill(id, amount);
+            this.bankAccountService.Refill(id, amount);
 
-            return bankAccountService.GetAll().ElementAt(id).Amount;
+            return this.bankAccountService.GetAll().ElementAt(id).Amount;
         }
 
         [TestCase(0, 10, ExpectedResult = 90)]
@@ -81,9 +81,9 @@ namespace BLL.Tests
         [TestCase(5, 10, ExpectedResult = 590)]
         public double Withdrawal_SuccessfulExecution(int id, double amount)
         {
-            bankAccountService = new BankAccountService(GetBankAccounts());
+            this.bankAccountService = new BankAccountService(GetBankAccounts());
 
-            bankAccountService.Withdrawal(id, amount);
+            this.bankAccountService.Withdrawal(id, amount);
 
             return bankAccountService.GetAll().ElementAt(id).Amount;
         }
@@ -101,7 +101,7 @@ namespace BLL.Tests
                 new BankAccount(2, "Ageeva", "Alina", 300, 4, GradingType.Base),
                 new BankAccount(3, "Stupen", "Maria", 400, 6, GradingType.Gold),
                 new BankAccount(4, "Eroshencova", "Polina", 500, 4, GradingType.Base),
-                new BankAccount(5,"Kutircina", "Elizaveta", 600, 8, GradingType.Platinum)
+                new BankAccount(5, "Kutircina", "Elizaveta", 600, 8, GradingType.Platinum)
             };
         }
 

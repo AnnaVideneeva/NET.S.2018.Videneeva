@@ -26,11 +26,18 @@ namespace DAL.Repositories
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new state of the object by <paramref name="listAccounts"/>.
+        /// </summary>
+        /// <param name="listAccounts">The sequence of objects of BankAccount type.</param>
         public AccountsFileStorage(IEnumerable<Account> listAccounts)
         {
             this.WriteDataToFile(listAccounts);
         }
 
+        /// <summary>
+        /// Initializes a new state.
+        /// </summary>
         public AccountsFileStorage()
         {
         }
@@ -162,7 +169,6 @@ namespace DAL.Repositories
                     BonusPoints = reader.ReadInt32(),
                     TypeGrading = reader.ReadInt32()
                 };
-
                 listAccounts.Add(account);
             }
 
@@ -182,7 +188,7 @@ namespace DAL.Repositories
             FileStream file = new FileStream(Path, FileMode.Create, FileAccess.Write);
             BinaryWriter writer = new BinaryWriter(file);
 
-            foreach(var account in listAccounts)
+            foreach (var account in listAccounts)
             {
                 writer.Write(account.Id);
                 writer.Write(account.OwnerName);

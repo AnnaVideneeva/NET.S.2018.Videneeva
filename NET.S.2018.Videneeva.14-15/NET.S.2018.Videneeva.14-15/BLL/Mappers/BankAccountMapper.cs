@@ -1,6 +1,6 @@
-﻿using BLL.Interface.Entities;
+﻿using System.Collections.Generic;
+using BLL.Interface.Entities;
 using DAL.Interface.DTO;
-using System.Collections.Generic;
 
 namespace BLL.Mappers
 {
@@ -94,8 +94,7 @@ namespace BLL.Mappers
                 account.OwnerSurname, 
                 account.Amount, 
                 account.BonusPoints, 
-                (GradingType)account.TypeGrading
-                );
+                (GradingType)account.TypeGrading);
         }
     }
 }

@@ -46,7 +46,8 @@ namespace BLL.Tests
 
             bankAccountService.Open(ownerName, ownerSurname, amount, gradingType);
 
-            mockRepository.Verify(repositoty => repositoty.Update(
+            mockRepository.Verify(
+                repositoty => repositoty.Update(
                 It.Is<Account>(account =>
                 account.OwnerName == ownerName &&
                 account.OwnerSurname == ownerSurname &&
@@ -69,7 +70,8 @@ namespace BLL.Tests
 
             bankAccountService.Close(id);
 
-            mockRepository.Verify(repository => repository.Delete(
+            mockRepository.Verify(
+                repository => repository.Delete(
                 It.Is<Account>(account =>
                 account.Id == id)),
                 Times.Once);
@@ -89,7 +91,8 @@ namespace BLL.Tests
 
             bankAccountService.Refill(id, amount);
 
-            mockRepository.Verify(repository => repository.Update(
+            mockRepository.Verify(
+                repository => repository.Update(
                 It.Is<Account>(account =>
                 account.Id == id)),
                 Times.Once);
@@ -109,7 +112,8 @@ namespace BLL.Tests
 
             bankAccountService.Withdrawal(id, amount);
 
-            mockRepository.Verify(repository => repository.Update(
+            mockRepository.Verify(
+                repository => repository.Update(
                 It.Is<Account>(account =>
                 account.Id == id)),
                 Times.Once);

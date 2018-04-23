@@ -7,7 +7,7 @@ namespace BLL.ServiceImplementation
     {
         #region Fields
 
-        BonusCounterType bonusCounter;
+        private BonusCounterType bonusCounter;
 
         #endregion Fields
 
@@ -19,7 +19,7 @@ namespace BLL.ServiceImplementation
         /// <param name="gradingType">A grading type.</param>
         public BonusCounter(GradingType gradingType)
         {
-            bonusCounter = BonusCounterFactory.GetBonusCounter(gradingType);
+            this.bonusCounter = BonusCounterFactory.GetBonusCounter(gradingType);
         }
 
         #endregion Constructor
@@ -33,7 +33,7 @@ namespace BLL.ServiceImplementation
         /// <returns>Increased bonus points.</returns>
         public virtual int Increase(int bonusPoints)
         {
-            return bonusPoints + bonusCounter.CoeffCostReplenishment;
+            return bonusPoints + this.bonusCounter.CoeffCostReplenishment;
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace BLL.ServiceImplementation
         /// <returns>Reduced bonus points.</returns>
         public virtual int Reduction(int bonusPoints)
         {
-            return (bonusPoints <= bonusCounter.CoeffCostReplenishment)
+            return (bonusPoints <= this.bonusCounter.CoeffCostReplenishment)
                 ? 0
-                : bonusPoints - bonusCounter.CoeffCostReplenishment;
+                : bonusPoints - this.bonusCounter.CoeffCostReplenishment;
         }
 
         #endregion Public methods to decrease/increase bonus points

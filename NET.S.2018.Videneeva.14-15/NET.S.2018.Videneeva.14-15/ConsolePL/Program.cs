@@ -8,18 +8,18 @@ namespace ConsolePL
 {
     public class Program
     {
-        private static readonly IKernel resolver;
+        private static readonly IKernel Resolver;
 
         static Program()
         {
-            resolver = new StandardKernel();
-            resolver.ConfigureResolver();
+            Resolver = new StandardKernel();
+            Resolver.ConfigureResolver();
         }
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            IBankAccountService accountService = resolver.Get<IBankAccountService>();
-            IGenerator creator = resolver.Get<IGenerator>();
+            IBankAccountService accountService = Resolver.Get<IBankAccountService>();
+            IGenerator creator = Resolver.Get<IGenerator>();
 
             accountService.Open("Videneeva", "Anna", 100, GradingType.Gold);
             accountService.Open("Frolov", "Slava", 200, GradingType.Platinum);
@@ -55,7 +55,7 @@ namespace ConsolePL
             Display(accountService);
         }
 
-        public static void Display(IBankAccountService accountService)
+        private static void Display(IBankAccountService accountService)
         {
             Console.WriteLine("*****************************************");
 

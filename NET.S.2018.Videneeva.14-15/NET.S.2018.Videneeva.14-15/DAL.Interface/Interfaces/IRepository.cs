@@ -1,5 +1,5 @@
-﻿using DAL.Interface.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DAL.Interface.DTO;
 
 namespace DAL.Interface.Interfaces
 {

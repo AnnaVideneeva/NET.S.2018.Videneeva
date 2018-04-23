@@ -14,8 +14,8 @@
         /// <param name="coeffCostBalanse">The balance cost factor used when debiting an account.</param>
         public BonusCounterType(int coeffCostReplenishment, int coeffCostBalanse)
         {
-            CoeffCostReplenishment = coeffCostReplenishment;
-            CoeffCostBalanse = coeffCostBalanse;
+            this.CoeffCostReplenishment = coeffCostReplenishment;
+            this.CoeffCostBalanse = coeffCostBalanse;
         }
 
         #endregion Constructor
