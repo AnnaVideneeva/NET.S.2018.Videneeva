@@ -19,7 +19,6 @@ namespace ConsolePL
         public static void Main(string[] args)
         {
             IBankAccountService accountService = Resolver.Get<IBankAccountService>();
-            IGenerator creator = Resolver.Get<IGenerator>();
 
             accountService.Open("Videneeva", "Anna", 100, GradingType.Gold);
             accountService.Open("Frolov", "Slava", 200, GradingType.Platinum);
@@ -30,29 +29,24 @@ namespace ConsolePL
 
             Display(accountService);
 
-            accountService.Refill(0, 100);
-            accountService.Refill(1, 100);
-            accountService.Refill(2, 100);
-            accountService.Refill(3, 100);
-            accountService.Refill(4, 100);
-            accountService.Refill(5, 100);
+            foreach (var account in accountService.GetAll())
+            {
+                accountService.Refill(account.Id, 100);
+            }
 
             Display(accountService);
 
-            accountService.Withdrawal(0, 10);
-            accountService.Withdrawal(1, 10);
-            accountService.Withdrawal(2, 10);
-            accountService.Withdrawal(3, 10);
-            accountService.Withdrawal(4, 10);
-            accountService.Withdrawal(5, 10);
+            foreach (var account in accountService.GetAll())
+            {
+                accountService.Withdrawal(account.Id, 10);
+            }
 
             Display(accountService);
 
-            accountService.Close(0);
-            accountService.Close(1);
-            accountService.Close(2);
-
-            Display(accountService);
+            foreach (var account in accountService.GetAll())
+            {
+                accountService.Close(account.Id);
+            }
         }
 
         private static void Display(IBankAccountService accountService)

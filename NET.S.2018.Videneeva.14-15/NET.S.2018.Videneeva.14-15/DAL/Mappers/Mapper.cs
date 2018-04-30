@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using BLL.Interface.Entities;
-using DAL.Interface.DTO;
+﻿using DAL.Interface.DTO;
+using ORM.Entities;
+using System;
 
-namespace BLL.Mappers
+namespace DAL.Mappers
 {
     /// <summary>
     /// Implements an adapter for the account.
     /// </summary>
-    public static class BankAccountMapper
+    public static class Mapper
     {
         /// <summary>
         /// Represent <paramref name="bankAccount"/> as an object of Account type.
@@ -26,9 +26,9 @@ namespace BLL.Mappers
                 Id = bankAccount.Id,
                 OwnerName = bankAccount.OwnerName,
                 OwnerSurname = bankAccount.OwnerSurname,
-                Amount = bankAccount.Amount,
+                Amount = Convert.ToDouble(bankAccount.Amount),
                 BonusPoints = bankAccount.BonusPoints,
-                TypeGrading = (int)bankAccount.TypeGrading
+                TypeGrading = bankAccount.TypeGrading
             };
         }
 
@@ -44,13 +44,15 @@ namespace BLL.Mappers
                 return null;
             }
 
-            return new BankAccount(
-                account.Id, 
-                account.OwnerName, 
-                account.OwnerSurname, 
-                account.Amount, 
-                account.BonusPoints, 
-                (GradingType)account.TypeGrading);
+            return new BankAccount()
+            {
+                Id = account.Id,
+                OwnerName = account.OwnerName,
+                OwnerSurname = account.OwnerSurname,
+                Amount = Convert.ToDecimal(account.Amount),
+                BonusPoints = account.BonusPoints,
+                TypeGrading = account.TypeGrading
+            };
         }
     }
 }

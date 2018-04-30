@@ -1,10 +1,18 @@
-﻿namespace BLL.Interface.Interfaces
+﻿using BLL.Interface.Entities;
+
+namespace BLL.Interface.Interfaces
 {
     /// <summary>
     /// Contains methods for calculating bonuses.
     /// </summary>
     public interface IBonusCounter
     {
+        /// <summary>
+        /// State the bonus counter.
+        /// </summary>
+        /// <param name="gradingType">A grading type.</param>
+        void InstallTypeBonusCounter(GradingType gradingType);
+
         /// <summary>
         /// Increases bonus points.
         /// </summary>

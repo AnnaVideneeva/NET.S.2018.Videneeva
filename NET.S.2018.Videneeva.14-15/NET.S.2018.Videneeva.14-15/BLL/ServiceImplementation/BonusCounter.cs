@@ -1,5 +1,6 @@
 ﻿using BLL.Interface.Entities;
 using BLL.Interface.Interfaces;
+using System;
 
 namespace BLL.ServiceImplementation
 {
@@ -14,15 +15,27 @@ namespace BLL.ServiceImplementation
         #region Constructor
 
         /// <summary>
-        /// Inintializes a new instance with <paramref name="gradingType"/>.
+        /// Inintializes a new instance.
+        /// </summary>
+        public BonusCounter()
+        {
+            bonusCounter = null;
+        }
+
+        #endregion Constructor
+
+        #region Public method for getting bonusCounter
+
+        /// <summary>
+        /// Install the bonus counter.
         /// </summary>
         /// <param name="gradingType">A grading type.</param>
-        public BonusCounter(GradingType gradingType)
+        public void InstallTypeBonusCounter(GradingType gradingType)
         {
             this.bonusCounter = BonusCounterFactory.GetBonusCounter(gradingType);
         }
 
-        #endregion Constructor
+        #endregion Public method for getting bonusCounter
 
         #region Public methods to decrease/increase bonus points
 
@@ -33,6 +46,11 @@ namespace BLL.ServiceImplementation
         /// <returns>Increased bonus points.</returns>
         public virtual int Increase(int bonusPoints)
         {
+            if (ReferenceEquals(null, bonusCounter))
+            {
+                throw new InvalidOperationException("The type of bonus counter is not install.");
+            }
+
             return bonusPoints + this.bonusCounter.CoeffCostReplenishment;
         }
 
@@ -43,6 +61,11 @@ namespace BLL.ServiceImplementation
         /// <returns>Reduced bonus points.</returns>
         public virtual int Reduction(int bonusPoints)
         {
+            if (ReferenceEquals(null, bonusCounter))
+            {
+                throw new InvalidOperationException("The type of bonus counter is not install.");
+            }
+
             return (bonusPoints <= this.bonusCounter.CoeffCostReplenishment)
                 ? 0
                 : bonusPoints - this.bonusCounter.CoeffCostReplenishment;

@@ -10,7 +10,7 @@ namespace DependencyResolver
     {
         public static void ConfigureResolver(this IKernel kernel)
         {
-            kernel.Bind<IRepository>().To<AccountsFileStorage>();
+            kernel.Bind<IRepository>().To<AccountsDbStorage>();
             kernel.Bind<IBankAccountService>().To<BankAccountService>();
             kernel.Bind<IBonusCounter>().To<BonusCounter>();
             kernel.Bind<IGenerator>().To<Generator>();
